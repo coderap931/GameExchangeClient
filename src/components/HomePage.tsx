@@ -40,11 +40,12 @@ export default class Home extends Component<{}, HomeState> {
               Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
+                {/*!PULL PICTURES OBJ USING LISTING.ID and DISPLAY FIRST IMG*/}
                 <p>Description:</p> {listing.description}
                 <br />
                 <p>Price: $</p> {listing.price}
                 <br />
-                <a href={`http://localhost:3000/listing/${listing.id}`}>View More Details!</a>
+                <a href={`http://localhost:3000/listing/${listing.id}`}>View More Details!</a> {/*!SEND LISTING OBJECT AS PROP*/}
             </CardBody>
           </Card>
         </div>
