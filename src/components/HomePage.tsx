@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Card} from 'reactstrap';
+import {Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
 
-type ListingState = {
-  listings: Array,
+type HomeState = {
+  listings: Array<Object> | null,
 }
 
-export default class Home extends Component<{}, ListingState> {
+export default class Home extends Component<{}, HomeState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ export default class Home extends Component<{}, ListingState> {
   }
   
   getListings() {
-    fetch(`${APIURL}/listing/all`, {
+    fetch('http://localhost:3000/listing/all`', {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -26,48 +26,37 @@ export default class Home extends Component<{}, ListingState> {
           listings: listingData,
         });
       });
-  });
+  };
   
   listingMapper() {
     return this.state.listings?.map((listing, index) => {
       return (
         <div id='listingGrid'>
-          <Card>
+          <Card key={index}>
             <CardTitle>
-              {this.state.listings[index].item_name}
+              {listing.item_name}
             </CardTitle>
             <CardSubtitle>
-              {
-                let nib = this.state.listings[index].newInBox;
-                if(nib === true){
-                  return(
-                    <h5>New</h5>
-                  )
-                } else {
-                  return(
-                    <h5>Used</h5>
-                  )
-                }
-              }
+              Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
-                <p>Description:</p> {this.state.listings[index].description}
+                <p>Description:</p> {listing.description}
                 <br />
-                <p>Price: $</p> {this.state.listings[index].price}
+                <p>Price: $</p> {listing.price}
                 <br />
-                //INSERT URL TO FULL LISTING DETAILS PAGE
+                <a href={`http://localhost:3000/listing/${listing.id}`}>View More Details!</a>
             </CardBody>
           </Card>
         </div>
       )
     })
   };
+
   render() {
     return (
       <div>
-        //INSERT NAVBAR
-        {listingMapper()}
+        {this.listingMapper()}
       </div>
     )
   }
-}
+};

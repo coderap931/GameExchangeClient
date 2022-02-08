@@ -1,28 +1,24 @@
 import React, {Component} from 'react';
-import {Navbar} from 'reactstrap';
+import {Navbar, Nav, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 
-export default class Navbar extends Component<{}> {
+export default class MyNavbar extends Component<{}> {
   render() {
     return (
       <div id='navbar'>
-        <Navbar
-          color='light'
-          expand='md'
-          light
-        >
+        <Navbar>
           <NavbarBrand href='/'>
             Game Exchange
           </NavbarBrand>
-          <NavbarToggler onClick={function noRefCheck(){}} />
-          <Collapse navbar>
-            <Nav
-              className='me-auto'
-              navbar
-            >
+            <NavItem>
+              <NavLink href='/listing/all'>
+                Home / View All Listings
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href='/user/register'>
                 Create Account
               </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href='/user/login'>
                 Login
@@ -33,12 +29,6 @@ export default class Navbar extends Component<{}> {
                 View Orders
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink href='/about'>
-                About Us
-              </NavLink>
-            </NavItem>
-          </Collase>  
         </Navbar>
       </div>
     )
