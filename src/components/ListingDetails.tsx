@@ -28,6 +28,102 @@ export default class ListingDetails extends Component<{}, ListingState> {
                     </Row>
                     <Row>
                         <Col>
+                            <Carousel
+                                activeIndex={0}
+                                next={function noRefCheck() {}}
+                                previous={function noRefCheck() {}}
+                            >
+                                <CarouselIndicators
+                                    activeIndex={0}
+                                    items={[
+                                        {
+                                            altText: 'Item Picture 1',
+                                            key: 1,
+                                            src: this.state.pictures.picture_one
+                                        },
+                                        {
+                                            altText: 'Item Picture 2',
+                                            key: 2,
+                                            src: this.state.pictures.picture_two
+                                        },
+                                        {
+                                            altText: 'Item Picture 3',
+                                            key: 3,
+                                            src: this.state.pictures.picture_three
+                                        },
+                                        {
+                                            altText: 'Item Picture 4',
+                                            key: 4,
+                                            src: this.state.pictures.picture_four
+                                        },
+                                        {
+                                            altText: 'Item Picture 5',
+                                            key: 5,
+                                            src: this.state.pictures.picture_five
+                                        }
+                                    ]}
+                                    onClickHandler={function noRefCheck() {}}
+                                />
+                                <CarouselItem
+                                    onExited={function noRefCheck() {}}
+                                    onExiting={function noRefCheck() {}}
+                                >
+                                    <img
+                                        alt='Item Picture 1'
+                                        src={this.state.pictures.picture_one}
+                                    />
+                                </CarouselItem>
+                                <CarouselItem
+                                    onExited={function noRefCheck() {}}
+                                    onExiting={function noRefCheck() {}}
+                                >
+                                    <img
+                                        alt='Item Picture 2'
+                                        src={this.state.pictures.picture_two}
+                                    />
+                                </CarouselItem>
+                                <CarouselItem
+                                    onExited={function noRefCheck() {}}
+                                    onExiting={function noRefCheck() {}}
+                                >
+                                    <img
+                                        alt='Item Picture 3'
+                                        src={this.state.pictures.picture_three}
+                                    />
+                                </CarouselItem>
+                                <CarouselItem
+                                    onExited={function noRefCheck() {}}
+                                    onExiting={function noRefCheck() {}}
+                                >
+                                    <img
+                                        alt='Item Picture 4'
+                                        src={this.state.pictures.picture_four}
+                                    />
+                                </CarouselItem>
+                                <CarouselItem
+                                    onExited={function noRefCheck() {}}
+                                    onExiting={function noRefCheck() {}}
+                                >
+                                    <img
+                                        alt='Item Picture 5'
+                                        src={this.state.pictures.picture_five}
+                                    />
+                                </CarouselItem>
+                                <CarouselControl
+                                    direction='prev'
+                                    directionText='Previous'
+                                    onClickHandler={function noRefCheck() {}}
+                                />
+                                <CarouselControl
+                                    direction='next'
+                                    directionText='Next'
+                                    onClickHandler={function noRefCheck() {}}
+                                />
+                            </Carousel>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             Description: {this.state.listing.description}
                         </Col>
                     </Row>
@@ -49,11 +145,6 @@ export default class ListingDetails extends Component<{}, ListingState> {
                     <Row>
                         <Col>
                             Price (USD): ${this.state.listing.price}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {/*ADD CAROUSEL VIA REACTSTRAP DOCS https://reactstrap.github.io/?path=/docs/components-carousel--carousel*/}
                         </Col>
                     </Row>
                 </Container>

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Form, Label, Input, FormGroup, Button} from 'reactstrap';
+import React, { Component } from 'react';
+import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 
 type RegisterState = {
     first_name: string | null,
@@ -24,6 +24,7 @@ export default class Register extends Component<{}, RegisterState> {
     }
 
     handleSubmit(event) {
+        let responseStatus: number;
         event.preventDefault();
         fetch('http://localhost:3000/user/register', {
             method: 'POST',
@@ -39,12 +40,21 @@ export default class Register extends Component<{}, RegisterState> {
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
-        }).then(
-            (response) => {
-                const serverStatus = response.status;
-                //! CONTINUE HERE
-            }
-        )
+        })
+            .then((response) => {
+                responseStatus = response.status;
+                return response.json();
+            })
+            .then((json) => {
+                if (responseStatus === 200) {
+                    return (
+                        <div>
+                            <p>Registration Complete!</p>
+                            <a href='/login'>Click Here to Proceed to Login</a>
+                        </div>
+                    )
+                }
+            })
     }
 
     render() {

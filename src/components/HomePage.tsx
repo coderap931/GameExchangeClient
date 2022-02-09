@@ -3,6 +3,7 @@ import {Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
 
 type HomeState = {
   listings: Array<Object> | null,
+  pictures: Array<Object> | null
 }
 
 export default class Home extends Component<{}, HomeState> {
@@ -10,6 +11,7 @@ export default class Home extends Component<{}, HomeState> {
     super(props);
     this.state = {
       listings: [],
+      pictures: []
     }
   }
   
@@ -18,14 +20,29 @@ export default class Home extends Component<{}, HomeState> {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-      }),
+      })
     })
       .then((res) => res.json())
       .then((listingData) => {
         this.setState({
           listings: listingData,
-        });
-      });
+        })
+      })
+  };
+
+  getPictures(listingId) {
+    fetch(`http://localhost:3000/pictures/lookup/${listingId}`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      })
+    })
+      .then((res) => res.json())
+      .then((picturesData) => {
+        this.setState({
+          pictures: picturesData,
+        })
+      })
   };
   
   listingMapper() {
@@ -40,7 +57,9 @@ export default class Home extends Component<{}, HomeState> {
               Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
-                {/*!PULL PICTURES OBJ USING LISTING.ID and DISPLAY FIRST IMG*/}
+                {this.getPictures(listing.id)}
+                <img src={this.state.pictures?.picture_one} />
+                <br />
                 <p>Description:</p> {listing.description}
                 <br />
                 <p>Price: $</p> {listing.price}
@@ -52,6 +71,14 @@ export default class Home extends Component<{}, HomeState> {
       )
     })
   };
+
+  componentDidMount() {
+    this.getListings();
+  }
+
+  componentDidUpdate() {
+    this.getListings();
+  }
 
   render() {
     return (
