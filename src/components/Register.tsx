@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
+const navigate = useNavigate();
 
 type RegisterState = {
     first_name: string | null,
@@ -23,18 +25,18 @@ export default class Register extends Component<{}, RegisterState> {
         }
     }
 
-    handleSubmit(event) {
+    handleSubmit(event: React.SyntheticEvent) {
         let responseStatus: number;
         event.preventDefault();
-        fetch('http://localhost:3000/user/register', {
+        fetch(`${process.env.API_URL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({
                 user: {
-                    first_name: first_name,
-                    last_name: last_name,
-                    username: username,
-                    email: email,
-                    password: password,
+                    first_name: this.state.first_name,
+                    last_name: this.state.last_name,
+                    username: this.state.username,
+                    email: this.state.email,
+                    password: this.state.password,
                 }
             }),
             headers: new Headers({
@@ -43,16 +45,13 @@ export default class Register extends Component<{}, RegisterState> {
         })
             .then((response) => {
                 responseStatus = response.status;
+                //! SET TOKEN
                 return response.json();
             })
             .then((json) => {
+                this.props.updateToken(json.sessionToken)
                 if (responseStatus === 200) {
-                    return (
-                        <div>
-                            <p>Registration Complete!</p>
-                            <a href='/login'>Click Here to Proceed to Login</a>
-                        </div>
-                    )
+                    navigate('/all');
                 }
             })
     }
@@ -69,6 +68,7 @@ export default class Register extends Component<{}, RegisterState> {
                         name='first_name'
                         placeholder='John'
                         type='text'
+                        onChange={(e) => this.setState({first_name: (e.target.value)})}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -80,6 +80,7 @@ export default class Register extends Component<{}, RegisterState> {
                         name='last_name'
                         placeholder='Doe'
                         type='text'
+                        onChange={(e) => this.setState({last_name: (e.target.value)})}
                     />
                 </FormGroup>
                 <FormGroup>

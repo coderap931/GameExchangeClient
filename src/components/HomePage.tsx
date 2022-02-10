@@ -15,21 +15,6 @@ export default class Home extends Component<{}, HomeState> {
     }
   }
   
-  getListings() {
-    fetch('http://localhost:3000/listing/all`', {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-      })
-    })
-      .then((res) => res.json())
-      .then((listingData) => {
-        this.setState({
-          listings: listingData,
-        })
-      })
-  };
-
   getPictures(listingId) {
     fetch(`http://localhost:3000/pictures/lookup/${listingId}`, {
       method: "GET",
