@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-const navigate = useNavigate();
 
 type LoginState = {
     username: string | undefined,
@@ -23,6 +22,7 @@ export default class Login extends Component<{}, LoginState> {
     }
 
     handleFormSubmit(event: React.SyntheticEvent) {
+        const navigate = useNavigate();
         let responseStatus: number;
         event.preventDefault();
         fetch(`${process.env.API_URL}/user/login`, {

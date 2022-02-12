@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import APIURL from "../helpers/environment";
 import {useNavigate} from 'react-router-dom';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
-const navigate = useNavigate();
 
 type RegisterState = {
     first_name: string | undefined,
@@ -26,9 +26,10 @@ export default class Register extends Component<{}, RegisterState> {
     };
 
     handleFormSubmit(event: React.SyntheticEvent) {
+        const navigate = useNavigate();
         let responseStatus: number;
         event.preventDefault();
-        fetch(`${process.env.API_URL}/user/register`, {
+        fetch(`${APIURL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({
                 user: {

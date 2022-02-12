@@ -1,11 +1,10 @@
-require("dotenv").config();
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
+import APIURL from "./helpers/environment";
 import './App.css';
 import MyNavbar from './components/MyNavbar';
-const navigate = useNavigate();
 
 //!DECLARE TYPES
 
@@ -38,6 +37,7 @@ type PicturesAPI = {
 }
 
 const App: React.FunctionComponent = () => {
+  const navigate = useNavigate();
   const [sessionToken, setSessionToken] = useState<string>('');
   const [listings, setListings] = useState<ListingAPI []>([]);
   const [pictures, setPictures] = useState<PicturesAPI []>([]);
@@ -55,7 +55,7 @@ const App: React.FunctionComponent = () => {
 
   //!Fetch Listings
   const fetchListings = (): void => {
-    fetch(`${process.env.API_URL}/listing/all`, {
+    fetch(`${APIURL}/listing/all`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ const App: React.FunctionComponent = () => {
                 <br />
                 <p>Price: $</p> {listing.price}
                 <br />
-                <a href={`${process.env.API_URL}/listing/${listing.id}`}>View More Details!</a>//!Change to FetchSpecificListing function
+                <a href={`${APIURL}/listing/${listing.id}`}>View More Details!</a>
             </CardBody>
           </Card>
         </div>
@@ -98,7 +98,7 @@ const App: React.FunctionComponent = () => {
   //!Fetch Your Listings
   const fetchYourListings = (): void => {
     if (sessionToken !== '') {
-      fetch(`${process.env.API_URL}/listing/yours`, {
+      fetch(`${APIURL}/listing/yours`, {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ const App: React.FunctionComponent = () => {
               <br />
               <p>Price: $</p> {listing.price}
               <br />
-              <a href={`${process.env.API_URL}/listing/${listing.id}`}>View Listing Details</a>//!Change to FetchSpecificListing function
+              <a href={`${APIURL}/listing/${listing.id}`}>View Listing Details</a>
             </CardBody>
           </Card>
         </div>
@@ -146,7 +146,7 @@ const App: React.FunctionComponent = () => {
 
   //!Fetch Specific Listing
   const fetchSpecificListing = (listingId: string): void => {
-    fetch(`${process.env.API_URL}/listing/listinginfo/${listingId}`, {
+    fetch(`${APIURL}/listing/listinginfo/${listingId}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json'
@@ -160,7 +160,7 @@ const App: React.FunctionComponent = () => {
 
   //!Delete A Listing
   const deleteListing = (listingId: string): void => {
-    fetch(`${process.env.API_URL}/listing/delete/${listingId}`, {
+    fetch(`${APIURL}/listing/delete/${listingId}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ const App: React.FunctionComponent = () => {
 
   //!Fetch Pictures
   const fetchPictures = (): void => {
-    fetch(`${process.env.API_URL}/pictures/all`, {
+    fetch(`${APIURL}/pictures/all`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -187,7 +187,7 @@ const App: React.FunctionComponent = () => {
 
    //!Fetch Specific Pictures
    const fetchSpecificPictures = (listingId: string): void=> {
-    fetch(`${process.env.API_URL}/pictures/lookup/${listingId}`, {
+    fetch(`${APIURL}/pictures/lookup/${listingId}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ const App: React.FunctionComponent = () => {
   //!Fetch Your Orders
   const fetchYourOrders = (): void => {
     if (sessionToken !== '') {
-      fetch(`${process.env.API_URL}/order/all`, {
+      fetch(`${APIURL}/order/all`, {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -244,7 +244,7 @@ const App: React.FunctionComponent = () => {
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
-              <a href={`${process.env.API_URL}/listing/${order.listingId}`}>View Listing Details</a>//!Change to FetchSpecificListing function
+              <a href={`${APIURL}/listing/${order.listingId}`}>View Listing Details</a>
             </CardBody>
           </Card>
         </div>
@@ -255,7 +255,7 @@ const App: React.FunctionComponent = () => {
   //!Fetch Specific Order
   const fetchSpecificOrder = (orderId: string): void => {
     if (sessionToken !== '') {
-      fetch(`${process.env.API_URL}/order/orderinfo/${orderId}`, {
+      fetch(`${APIURL}/order/orderinfo/${orderId}`, {
         method: 'GET',
         headers: new Headers({
           'Content-Type': 'application/json',
