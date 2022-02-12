@@ -44,7 +44,7 @@ type MyNavbarProps = {
   yourListings: ListingAPI [],
   listingsMapper: () => void,
   fetchYourListings: () => void,
-  yourListingsMapper: () => {},
+  yourListingsMapper: () => JSX.Element[],
   fetchSpecificListing: (listingId: string) => void,
   specificListing: ListingAPI [],
   deleteListing: (listingId: string) => void,
@@ -103,12 +103,12 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             </NavItem>
         </Navbar>
         <Routes>
-          {/* <Route path='/listing/all' element={<Home fetchListings={this.props.fetchListings} listings={this.props.listings} />} />
-          <Route path='/listing/create' element={<ListingCreate />} />
-          <Route path='/listing/yours' element={<ListingsYours fetchYourListings={this.props.fetchYourListings} yourListings={this.props.yourListings} />} />
+          <Route path='/listing/all' element={<Home fetchListings={this.props.fetchListings} listings={this.props.listings} listingsMapper={this.props.listingsMapper}/>} />
+          <Route path='/listing/create' element={<ListingCreate fetchListings={this.props.fetchListings} />} />
+          <Route path='/listing/yours' element={<ListingsYours fetchYourListings={this.props.fetchYourListings} yourListings={this.props.yourListings} yourListingsMapper={this.props.yourListingsMapper} />} />
           <Route path='user/register' element={<Register updateToken={this.props.updateToken} />} />
           <Route path='/user/login' element={<Login updateToken={this.props.updateToken} sessionToken={this.props.sessionToken} />} />
-          <Route path='/orders/all' element={<Orders fetchYourOrders={this.props.fetchYourOrders} yourOrders={this.props.yourOrders}/>} /> */}
+          <Route path='/orders/all' element={<Orders fetchYourOrders={this.props.fetchYourOrders} yourOrders={this.props.yourOrders} yourOrdersMapper={this.props.yourOrdersMapper} />} />
         </Routes>
       </div>
     )

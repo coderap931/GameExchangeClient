@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
 import APIURL from "./helpers/environment";
 import './App.css';
@@ -37,7 +36,6 @@ type PicturesAPI = {
 }
 
 const App: React.FunctionComponent = () => {
-  const navigate = useNavigate();
   const [sessionToken, setSessionToken] = useState<string>('');
   const [listings, setListings] = useState<ListingAPI []>([]);
   const [pictures, setPictures] = useState<PicturesAPI []>([]);
@@ -68,7 +66,7 @@ const App: React.FunctionComponent = () => {
   };
 
   //!Map Listings
-  const listingsMapper = () => {
+  const listingsMapper = (): JSX.Element [] => {
     return listings?.map((listing: ListingAPI, index: number) => {
       {fetchPictures()}
       return (
@@ -110,14 +108,14 @@ const App: React.FunctionComponent = () => {
           setYourListings(usersListings);
         })
     } else {
-      alert('You dont have any listings, returning to home page');
-      navigate('/all');
+      alert('You dont have any listings');
+      <a href='/all'>Click here to return home</a>
     }
   };
 
 
   //!Map Your Listings
-  const yourListingsMapper = () => {
+  const yourListingsMapper = (): JSX.Element [] => {
     return yourListings?.map((listing: ListingAPI, index: number) => {
       {fetchSpecificPictures(listing.id)}
       return (
@@ -214,13 +212,13 @@ const App: React.FunctionComponent = () => {
           setYourOrders(usersOrders);
         })
     } else {
-      alert('You dont have any orders, returning to home page');
-      navigate('/all');
+      alert('You dont have any orders');
+      <a href='/all'>Click here to return home</a>
     }
   };
 
   //!Map Your Orders
-  const yourOrdersMapper = () => {
+  const yourOrdersMapper = (): JSX.Element [] => {
     return yourOrders?.map((order: OrderAPI, index: number) => {
       {fetchSpecificListing(order.listingId)}
       {fetchSpecificPictures(order.listingId)}
@@ -267,8 +265,8 @@ const App: React.FunctionComponent = () => {
           setSpecificOrder(specificOrderData);
         })
     } else {
-      alert('This order cannot be found, it may not exist or you may not be authorized to view it; Returning to home page');
-      navigate('/all');
+      alert('This order cannot be found, it may not exist or you may not be authorized to view it');
+      <a href='/all'>Click here to return home</a>
     }
   };
 
