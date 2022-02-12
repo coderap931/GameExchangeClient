@@ -1,21 +1,55 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Carousel, CarouselIndicators, CarouselItem, CarouselControl} from 'reactstrap';
 
+type Listing = {
+    id: string,
+    sold: boolean,
+    item_name: string,
+    description: string,
+    platform: string,
+    newInBox: boolean,
+    condition: string,
+    price: number,
+    pictures: boolean
+}
+
+type Pictures = {
+    picture_one: string | undefined,
+    picture_two: string | undefined,
+    picture_three: string | undefined,
+    picture_four: string | undefined,
+    picture_five: string | undefined
+}
+
 type ListingState = {
-    listing: Object,
-    pictures: Object,
+    listing: Listing,
+    pictures: Pictures,
 }
 
 export default class ListingDetails extends Component<{}, ListingState> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            listing: {},
-            pictures: {}
+            listing: {
+                id: '',
+                sold: false,
+                item_name: '',
+                description: '',
+                platform: '',
+                newInBox: false,
+                condition: '',
+                price: 0,
+                pictures: false
+            },
+            pictures: {
+                picture_one: '',
+                picture_two: '',
+                picture_three: '',
+                picture_four: '',
+                picture_five: ''
+            }
         }
     }
-
-    //!RECIEVE LISTING PASSED AS PROP
 
     render() {
         return (

@@ -4,12 +4,12 @@ import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 const navigate = useNavigate();
 
 type RegisterState = {
-    first_name: string | null,
-    last_name: string | null,
-    username: string | null,
-    email: string | null,
-    password: string | null,
-    role: string | null,
+    first_name: string | undefined,
+    last_name: string | undefined,
+    username: string | undefined,
+    email: string | undefined,
+    password: string | undefined,
+    role: string | undefined,
 }
 
 export default class Register extends Component<{}, RegisterState> {
@@ -23,9 +23,9 @@ export default class Register extends Component<{}, RegisterState> {
             password: '',
             role: 'Client',
         }
-    }
+    };
 
-    handleSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit(event: React.SyntheticEvent) {
         let responseStatus: number;
         event.preventDefault();
         fetch(`${process.env.API_URL}/user/register`, {
@@ -45,7 +45,6 @@ export default class Register extends Component<{}, RegisterState> {
         })
             .then((response) => {
                 responseStatus = response.status;
-                //! SET TOKEN
                 return response.json();
             })
             .then((json) => {
@@ -54,11 +53,11 @@ export default class Register extends Component<{}, RegisterState> {
                     navigate('/all');
                 }
             })
-    }
+    };
 
     render() {
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleFormSubmit}>
                 <FormGroup>
                     <Label for='first_name'>
                         First Name
@@ -68,6 +67,7 @@ export default class Register extends Component<{}, RegisterState> {
                         name='first_name'
                         placeholder='John'
                         type='text'
+                        value={this.state.first_name}
                         onChange={(e) => this.setState({first_name: (e.target.value)})}
                     />
                 </FormGroup>
@@ -80,6 +80,7 @@ export default class Register extends Component<{}, RegisterState> {
                         name='last_name'
                         placeholder='Doe'
                         type='text'
+                        value={this.state.last_name}
                         onChange={(e) => this.setState({last_name: (e.target.value)})}
                     />
                 </FormGroup>
@@ -92,6 +93,8 @@ export default class Register extends Component<{}, RegisterState> {
                         name='username'
                         placeholder='Collector123'
                         type='text'
+                        value={this.state.username}
+                        onChange={(e) => this.setState({username: (e.target.value)})}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -103,6 +106,8 @@ export default class Register extends Component<{}, RegisterState> {
                         name='email'
                         placeholder='example@example.com'
                         type='email'
+                        value={this.state.email}
+                        onChange={(e) => this.setState({email: (e.target.value)})}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -114,6 +119,8 @@ export default class Register extends Component<{}, RegisterState> {
                         name='password'
                         placeholder='Password123'
                         type='password'
+                        value={this.state.password}
+                        onChange={(e) => this.setState({password: (e.target.value)})}
                     />
                 </FormGroup>
                 <Button type='submit'>
@@ -122,4 +129,4 @@ export default class Register extends Component<{}, RegisterState> {
             </Form>
         )
     }
-}
+};
