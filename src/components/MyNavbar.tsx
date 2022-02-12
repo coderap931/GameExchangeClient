@@ -103,12 +103,12 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             </NavItem>
         </Navbar>
         <Routes>
-          <Route path='/listing/all' element={<Home fetchListings={this.props.fetchListings} listings={this.props.listings} />} />
+          {/* <Route path='/listing/all' element={<Home fetchListings={this.props.fetchListings} listings={this.props.listings} />} />
           <Route path='/listing/create' element={<ListingCreate />} />
           <Route path='/listing/yours' element={<ListingsYours fetchYourListings={this.props.fetchYourListings} yourListings={this.props.yourListings} />} />
           <Route path='user/register' element={<Register updateToken={this.props.updateToken} />} />
           <Route path='/user/login' element={<Login updateToken={this.props.updateToken} sessionToken={this.props.sessionToken} />} />
-          <Route path='/orders/all' element={<Orders fetchYourOrders={this.props.fetchYourOrders} yourOrders={this.props.yourOrders}/>} />
+          <Route path='/orders/all' element={<Orders fetchYourOrders={this.props.fetchYourOrders} yourOrders={this.props.yourOrders}/>} /> */}
         </Routes>
       </div>
     )
