@@ -33,7 +33,11 @@ type HomePageProps = {
   fetchPictures: () => void,
   setPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
   specificListing: ListingAPI [],
+  fetchSpecificListing: (listingId: string) => void,
   setSpecificListing:  Dispatch<SetStateAction<ListingAPI[]>>,
+  specificPictures: PicturesAPI [],
+  fetchSpecificPictures: (listingId: string) => void,
+  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
 }
 
 export default class Home extends Component<HomePageProps, {}> {
@@ -63,7 +67,14 @@ export default class Home extends Component<HomePageProps, {}> {
             </CardBody>
           </Card>
           <Routes>
-            <Route path={`${APIURL}/listing/${listing.id}`} element={<ListingDetails specificListing={this.props.specificListing} setSpecificListing={this.props.setSpecificListing} />}/>
+            <Route path={`${APIURL}/listing/${listing.id}`} element={<ListingDetails
+              specificListing={this.props.specificListing}
+              fetchSpecificListing={this.props.fetchSpecificListing}
+              setSpecificListing={this.props.setSpecificListing}
+              specificPictures={this.props.specificPictures}
+              fetchSpecificPictures={this.props.fetchSpecificPictures}
+              setSpecificPictures={this.props.setSpecificPictures}
+            />}/>
           </Routes>
         </div>
       )

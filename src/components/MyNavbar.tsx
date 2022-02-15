@@ -112,12 +112,44 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
         </Navbar>
         <Routes>
           {/* !!!!!!!!!!!!!!!ADD MORE PROPS AS NEEDED TO PASS THROUGH TO CHILD PAGES OF THE PAGES BELOW!!!!!!!!!!!!!!!!!!!!! */}
-          <Route path='/listing/all' element={<Home fetchListings={this.props.fetchListings} listings={this.props.listings} listingsMapper={this.props.listingsMapper} setListings={this.props.setListings} pictures={this.props.pictures} fetchPictures={this.props.fetchPictures} setPictures={this.props.setPictures} specificListing={this.props.specificListing} setSpecificListing={this.props.setSpecificListing}/>} />
-          <Route path='/listing/create' element={<ListingCreate fetchListings={this.props.fetchListings} />} />
-          <Route path='/listing/yours' element={<ListingsYours fetchYourListings={this.props.fetchYourListings} yourListings={this.props.yourListings} yourListingsMapper={this.props.yourListingsMapper} />} />
-          <Route path='user/register' element={<Register updateToken={this.props.updateToken} setSessionToken={this.props.setSessionToken} />} />
-          <Route path='/user/login' element={<Login updateToken={this.props.updateToken} sessionToken={this.props.sessionToken} setSessionToken={this.props.setSessionToken}/>} />
-          <Route path='/orders/all' element={<Orders fetchYourOrders={this.props.fetchYourOrders} yourOrders={this.props.yourOrders} yourOrdersMapper={this.props.yourOrdersMapper} setYourOrders={this.props.setYourOrders}/>} />
+          <Route path='/listing/all' element={<Home 
+            fetchListings={this.props.fetchListings}
+            listings={this.props.listings}
+            listingsMapper={this.props.listingsMapper}
+            setListings={this.props.setListings}
+            pictures={this.props.pictures}
+            fetchPictures={this.props.fetchPictures}
+            setPictures={this.props.setPictures}
+            specificListing={this.props.specificListing}
+            fetchSpecificListing={this.props.fetchSpecificListing}
+            setSpecificListing={this.props.setSpecificListing}
+            specificPictures={this.props.specificPictures}
+            fetchSpecificPictures={this.props.fetchSpecificPictures}
+            setSpecificPictures={this.props.setSpecificPictures}
+          />}/>
+          <Route path='/listing/create' element={<ListingCreate
+            fetchListings={this.props.fetchListings}
+          />} />
+          <Route path='/listing/yours' element={<ListingsYours
+            fetchYourListings={this.props.fetchYourListings}
+            yourListings={this.props.yourListings}
+            yourListingsMapper={this.props.yourListingsMapper} 
+          />} />
+          <Route path='user/register' element={<Register
+            updateToken={this.props.updateToken}
+            setSessionToken={this.props.setSessionToken}
+          />} />
+          <Route path='/user/login' element={<Login
+              updateToken={this.props.updateToken}
+              sessionToken={this.props.sessionToken}
+              setSessionToken={this.props.setSessionToken}
+          />} />
+          <Route path='/orders/all' element={<Orders
+              fetchYourOrders={this.props.fetchYourOrders}
+              yourOrders={this.props.yourOrders}
+              yourOrdersMapper={this.props.yourOrdersMapper}
+              setYourOrders={this.props.setYourOrders}
+          />} />
         </Routes>
       </div>
     )
