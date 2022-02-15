@@ -5,8 +5,6 @@ import APIURL from "./helpers/environment";
 import './App.css';
 import MyNavbar from './components/MyNavbar';
 
-//!DECLARE TYPES
-
 type ListingAPI = {
   id: string,
   sold: boolean,
@@ -295,6 +293,14 @@ const App: React.FunctionComponent = () => {
             fetchSpecificOrder={fetchSpecificOrder}
             specificOrder={specificOrder}
             yourOrdersMapper={yourOrdersMapper}
+            setSessionToken={setSessionToken}
+            setListings={setListings}
+            setPictures={setPictures}
+            setSpecificPictures={setSpecificPictures}
+            setYourListings={setYourListings}
+            setYourOrders={setYourOrders}
+            setSpecificListing={setSpecificListing}
+            setSpecificOrder={setSpecificOrder}
           />
         </Router>
       </div>

@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Carousel, CarouselIndicators, CarouselItem, CarouselControl} from 'reactstrap';
 
+
+//!TAKE SPECIFICLISTING AND SETSPECIFICLISTING AS PROPS, THEN FETCH SPECIFICLISTING AND DISPLAY THAT WAY
+
+
 type Listing = {
     id: string,
     sold: boolean,
