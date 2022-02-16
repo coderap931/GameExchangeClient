@@ -130,7 +130,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             setSpecificPictures={this.props.setSpecificPictures}
           />}/>
           <Route path='/listing/create' element={<ListingCreate
-            fetchListings={this.props.fetchListings}
+            listings={this.props.listings}
           />} />
           <Route path='/listing/yours' element={<ListingsYours
             fetchYourListings={this.props.fetchYourListings}
@@ -139,7 +139,6 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
           />} />
           <Route path='user/register' element={<Register
             updateToken={this.props.updateToken}
-            setSessionToken={this.props.setSessionToken}
           />} />
           <Route path='/user/login' element={<Login
               updateToken={this.props.updateToken}

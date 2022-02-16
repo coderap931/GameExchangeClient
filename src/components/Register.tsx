@@ -13,8 +13,6 @@ type RegisterState = {
 
 type RegisterProps = {
     updateToken: (newToken: string) => void,
-    sessionToken: string,
-    setSessionToken: Dispatch<SetStateAction<string>>,
 }
 
 export default class Register extends Component<RegisterProps, RegisterState> {
@@ -55,7 +53,10 @@ export default class Register extends Component<RegisterProps, RegisterState> {
             .then((json) => {
                 this.props.updateToken(json.sessionToken)
                 if (responseStatus === 200) {
-                    <Button href='/all'>Return home</Button>
+                    <div>
+                        <p>Registration Successful</p>
+                        <Button href='/all'>Return home</Button>
+                    </div>
                 }
             })
     };
