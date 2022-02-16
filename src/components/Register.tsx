@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Dispatch, SetStateAction } from 'react';
 import APIURL from "../helpers/environment";
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 
@@ -11,8 +11,14 @@ type RegisterState = {
     role: string | undefined,
 }
 
-export default class Register extends Component<{}, RegisterState> {
-    constructor(props: {}) {
+type RegisterProps = {
+    updateToken: (newToken: string) => void,
+    sessionToken: string,
+    setSessionToken: Dispatch<SetStateAction<string>>,
+}
+
+export default class Register extends Component<RegisterProps, RegisterState> {
+    constructor(props: RegisterProps) {
         super(props);
         this.state = {
             first_name: '',
@@ -49,7 +55,7 @@ export default class Register extends Component<{}, RegisterState> {
             .then((json) => {
                 this.props.updateToken(json.sessionToken)
                 if (responseStatus === 200) {
-                    <a href='/all'>Click here to return home</a>
+                    <Button href='/all'>Return home</Button>
                 }
             })
     };

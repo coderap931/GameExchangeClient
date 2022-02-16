@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
+import { Card, CardTitle, CardBody, CardSubtitle, Button} from 'reactstrap';
 import APIURL from "./helpers/environment";
 import './App.css';
 import MyNavbar from './components/MyNavbar';
@@ -83,7 +83,7 @@ const App: React.FunctionComponent = () => {
                 <br />
                 <p>Price: $</p> {listing.price}
                 <br />
-                <a href={`${APIURL}/listing/${listing.id}`}>View More Details!</a>
+                <Button href={`${APIURL}/listing/${listing.id}`}>View More Details!</Button>
             </CardBody>
           </Card>
         </div>
@@ -132,7 +132,7 @@ const App: React.FunctionComponent = () => {
               <br />
               <p>Price: $</p> {listing.price}
               <br />
-              <a href={`${APIURL}/listing/${listing.id}`}>View Listing Details</a>
+              <Button href={`${APIURL}/listing/${listing.id}`}>View Listing Details</Button>
             </CardBody>
           </Card>
         </div>
@@ -240,7 +240,7 @@ const App: React.FunctionComponent = () => {
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
-              <a href={`${APIURL}/listing/${order.listingId}`}>View Listing Details</a>
+              <Button href={`${APIURL}/listing/${order.listingId}`}>View Listing Details</Button>
             </CardBody>
           </Card>
         </div>
@@ -264,7 +264,7 @@ const App: React.FunctionComponent = () => {
         })
     } else {
       alert('This order cannot be found, it may not exist or you may not be authorized to view it');
-      <a href='/all'>Click here to return home</a>
+      <Button href='/all'>Return home</Button>
     }
   };
 

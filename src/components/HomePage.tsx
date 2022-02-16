@@ -68,6 +68,7 @@ export default class Home extends Component<HomePageProps, {}> {
           </Card>
           <Routes>
             <Route path={`${APIURL}/listing/${listing.id}`} element={<ListingDetails
+              listingId={`${listing.id}`}
               specificListing={this.props.specificListing}
               fetchSpecificListing={this.props.fetchSpecificListing}
               setSpecificListing={this.props.setSpecificListing}
