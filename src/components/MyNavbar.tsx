@@ -133,9 +133,16 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             listings={this.props.listings}
           />} />
           <Route path='/listing/yours' element={<ListingsYours
+            sessionToken={this.props.sessionToken}
             fetchYourListings={this.props.fetchYourListings}
+            setYourListings={this.props.setYourListings}
             yourListings={this.props.yourListings}
-            yourListingsMapper={this.props.yourListingsMapper} 
+            specificListing={this.props.specificListing}
+            fetchSpecificListing={this.props.fetchSpecificListing}
+            setSpecificListing={this.props.setSpecificListing}
+            specificPictures={this.props.specificPictures}
+            fetchSpecificPictures={this.props.fetchSpecificPictures}
+            setSpecificPictures={this.props.setSpecificPictures}
           />} />
           <Route path='user/register' element={<Register
             updateToken={this.props.updateToken}
@@ -148,8 +155,11 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
           <Route path='/orders/all' element={<Orders
               fetchYourOrders={this.props.fetchYourOrders}
               yourOrders={this.props.yourOrders}
-              yourOrdersMapper={this.props.yourOrdersMapper}
               setYourOrders={this.props.setYourOrders}
+              specificListing={this.props.specificListing}
+              fetchSpecificListing={this.props.fetchSpecificListing}
+              specificPictures={this.props.specificPictures}
+              fetchSpecificPictures={this.props.fetchSpecificPictures}
           />} />
         </Routes>
       </div>

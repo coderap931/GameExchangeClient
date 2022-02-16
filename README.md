@@ -7,4 +7,4 @@ Client Creation Status Updates:
 -2/9/22: Moved most existing functions and state vars to App, need to move a couple more yet
 -2/12/22: Updated and completed App, updated MyNavbar, updated and completed Register, updated and completed ListingDetails, created all further necessary files for deployment, deployed to heroku
 -2/15/22: More progress in passing props, nearly completed HomePage, made props passed more legible
--2/16/22: More progress in passing props, completed HomePage, ListingDetails, Register, Login, OrderCreate, (etc), nearly completed ListingCreate
+-2/16/22: More progress in passing props, rough draft of all files completed, moving to testing/debugging and cleaning up redundant/useless code
