@@ -14,7 +14,7 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: boolean
+  pictures: PicturesAPI
 }
 
 type OrderAPI = {
@@ -22,7 +22,7 @@ type OrderAPI = {
   total_price: number,
   date_time: Date,
   shipping_address: string,
-  listingId: string
+  specificListing: ListingAPI
 }
 
 type PicturesAPI = {
@@ -37,11 +37,11 @@ const App: React.FunctionComponent = () => {
   const [sessionToken, setSessionToken] = useState<string>('');
   const [listings, setListings] = useState<ListingAPI []>([]);
   const [pictures, setPictures] = useState<PicturesAPI []>([]);
-  const [specificPictures, setSpecificPictures] = useState<PicturesAPI []>([]);
+  const [specificPictures, setSpecificPictures] = useState<PicturesAPI | undefined>();
   const [yourListings, setYourListings] = useState<ListingAPI []>([]);
   const [yourOrders, setYourOrders] = useState<OrderAPI []>([]);
-  const [specificListing, setSpecificListing] = useState<ListingAPI []>([]);
-  const [specificOrder, setSpecificOrder] = useState<OrderAPI []>([]);
+  const [specificListing, setSpecificListing] = useState<ListingAPI | undefined>();
+  const [specificOrder, setSpecificOrder] = useState<OrderAPI | undefined>();
 
   //!Update/Set User Token on Register/Login
   const updateToken = (newToken: string): void => {
@@ -126,7 +126,7 @@ const App: React.FunctionComponent = () => {
               Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
-              <img src={specificPictures[0]?.picture_one} />
+              <img src={specificPictures?.picture_one} />
               <br />
               <p>Description:</p> {listing.description}
               <br />
@@ -218,29 +218,27 @@ const App: React.FunctionComponent = () => {
   //!Map Your Orders
   const yourOrdersMapper = (): JSX.Element [] => {
     return yourOrders?.map((order: OrderAPI, index: number) => {
-      {fetchSpecificListing(order.listingId)}
-      {fetchSpecificPictures(order.listingId)}
       return (
         <div id='orderGrid'>
           <Card key={index}>
             <CardTitle>
-              {specificListing[0].item_name}
+              {order.specificListing.item_name}
             </CardTitle>
             <CardSubtitle>
               Date/Time Ordered: {order.date_time}
             </CardSubtitle>
             <CardBody>
-              <img src={specificPictures[0]?.picture_one} />
+              <img src={order.specificListing.pictures.picture_one} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {specificListing[0].description}
+              <p>Description:</p> {order.specificListing.description}
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
-              <Button href={`${APIURL}/listing/${order.listingId}`}>View Listing Details</Button>
+              <Button href={`${APIURL}/listing/${order.specificListing.id}`}>View Listing Details</Button>
             </CardBody>
           </Card>
         </div>
@@ -284,19 +282,16 @@ const App: React.FunctionComponent = () => {
             fetchSpecificListing={fetchSpecificListing}
             specificListing={specificListing}
             deleteListing={deleteListing}
-            pictures={pictures}
-            fetchPictures={fetchPictures}
-            specificPictures={specificPictures}
             fetchSpecificPictures={fetchSpecificPictures}
             fetchYourOrders={fetchYourOrders}
             yourOrders={yourOrders}
             fetchSpecificOrder={fetchSpecificOrder}
             specificOrder={specificOrder}
             yourOrdersMapper={yourOrdersMapper}
+            specificPictures={specificPictures}
+            setSpecificPictures={setSpecificPictures}
             setSessionToken={setSessionToken}
             setListings={setListings}
-            setPictures={setPictures}
-            setSpecificPictures={setSpecificPictures}
             setYourListings={setYourListings}
             setYourOrders={setYourOrders}
             setSpecificListing={setSpecificListing}

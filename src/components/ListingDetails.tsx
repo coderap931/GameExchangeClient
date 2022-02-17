@@ -13,7 +13,7 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: boolean
+    pictures: PicturesAPI
   }
   
   type PicturesAPI = {
@@ -26,12 +26,9 @@ type ListingAPI = {
 
   type ListingDetailsProps = {
     listingId: string,
-    specificListing: ListingAPI[],
+    specificListing: ListingAPI | undefined,
     fetchSpecificListing: (listingId: string) => void,
-    setSpecificListing:  Dispatch<SetStateAction<ListingAPI[]>>,
-    specificPictures: PicturesAPI [],
-    fetchSpecificPictures: (listingId: string) => void,
-    setSpecificPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
+    setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
   }
 
 export default class ListingDetails extends Component<ListingDetailsProps, {}> {
@@ -41,12 +38,10 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
 
     componentDidMount() {
         this.props.fetchSpecificListing(this.props.listingId);
-        this.props.fetchSpecificPictures(this.props.listingId);
     }
 
     componentDidUpdate() {
         this.props.fetchSpecificListing(this.props.listingId);
-        this.props.fetchSpecificPictures(this.props.listingId);
     }
 
     render() {
@@ -55,7 +50,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                 <Container>
                     <Row>
                         <Col>
-                            Name: {this.props.specificListing[0].item_name}
+                            Name: {this.props.specificListing?.item_name}
                         </Col>
                     </Row>
                     <Row>
@@ -71,27 +66,27 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                         {
                                             altText: 'Item Picture 1',
                                             key: 1,
-                                            src: this.props.specificPictures[0].picture_one
+                                            src: this.props.specificListing?.pictures.picture_one
                                         },
                                         {
                                             altText: 'Item Picture 2',
                                             key: 2,
-                                            src: this.props.specificPictures[0].picture_two
+                                            src: this.props.specificListing?.pictures.picture_two
                                         },
                                         {
                                             altText: 'Item Picture 3',
                                             key: 3,
-                                            src: this.props.specificPictures[0].picture_three
+                                            src: this.props.specificListing?.pictures.picture_three
                                         },
                                         {
                                             altText: 'Item Picture 4',
                                             key: 4,
-                                            src: this.props.specificPictures[0].picture_four
+                                            src: this.props.specificListing?.pictures.picture_four
                                         },
                                         {
                                             altText: 'Item Picture 5',
                                             key: 5,
-                                            src: this.props.specificPictures[0].picture_five
+                                            src: this.props.specificListing?.pictures.picture_five
                                         }
                                     ]}
                                     onClickHandler={function noRefCheck() {}}
@@ -102,7 +97,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                 >
                                     <img
                                         alt='Item Picture 1'
-                                        src={this.props.specificPictures[0].picture_one}
+                                        src={this.props.specificListing?.pictures.picture_one}
                                     />
                                 </CarouselItem>
                                 <CarouselItem
@@ -111,7 +106,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                 >
                                     <img
                                         alt='Item Picture 2'
-                                        src={this.props.specificPictures[0].picture_two}
+                                        src={this.props.specificListing?.pictures.picture_two}
                                     />
                                 </CarouselItem>
                                 <CarouselItem
@@ -120,7 +115,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                 >
                                     <img
                                         alt='Item Picture 3'
-                                        src={this.props.specificPictures[0].picture_three}
+                                        src={this.props.specificListing?.pictures.picture_three}
                                     />
                                 </CarouselItem>
                                 <CarouselItem
@@ -129,7 +124,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                 >
                                     <img
                                         alt='Item Picture 4'
-                                        src={this.props.specificPictures[0].picture_four}
+                                        src={this.props.specificListing?.pictures.picture_four}
                                     />
                                 </CarouselItem>
                                 <CarouselItem
@@ -138,7 +133,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                                 >
                                     <img
                                         alt='Item Picture 5'
-                                        src={this.props.specificPictures[0].picture_five}
+                                        src={this.props.specificListing?.pictures.picture_five}
                                     />
                                 </CarouselItem>
                                 <CarouselControl
@@ -156,37 +151,37 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                     </Row>
                     <Row>
                         <Col>
-                            Description: {this.props.specificListing[0].description}
+                            Description: {this.props.specificListing?.description}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            Platform: {this.props.specificListing[0].platform}
+                            Platform: {this.props.specificListing?.platform}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            New In Box: {this.props.specificListing[0].newInBox}
+                            New In Box: {this.props.specificListing?.newInBox}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            Condition Description: {this.props.specificListing[0].condition}
+                            Condition Description: {this.props.specificListing?.condition}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            Price (USD): ${this.props.specificListing[0].price}
+                            Price (USD): ${this.props.specificListing?.price}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <Button href={`${APIURL}/order/create/${this.props.specificListing[0].id}`}>Order It!</Button>
+                            <Button href={`${APIURL}/order/create/${this.props.specificListing?.id}`}>Order It!</Button>
                         </Col>
                     </Row>
                 </Container>
                 <Routes>
-                    <Route path={`${APIURL}/order/create/${this.props.specificListing[0].id}`} element={<OrderCreate
+                    <Route path={`${APIURL}/order/create/${this.props.specificListing?.id}`} element={<OrderCreate
                         specificListing={this.props.specificListing}
                     />}/>
                 </Routes>

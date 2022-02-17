@@ -13,6 +13,8 @@ type RegisterState = {
 
 type RegisterProps = {
     updateToken: (newToken: string) => void,
+    sessionToken: string,
+    setSessionToken: Dispatch<SetStateAction<string>>
 }
 
 export default class Register extends Component<RegisterProps, RegisterState> {

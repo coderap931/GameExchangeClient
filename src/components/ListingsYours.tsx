@@ -13,7 +13,7 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: boolean
+    pictures: PicturesAPI
 }
 
 type PicturesAPI = {
@@ -28,13 +28,12 @@ type ListingsYoursProps = {
     sessionToken: string,
     yourListings: ListingAPI [],
     fetchYourListings: () => void,
-    setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
-    specificListing: ListingAPI [],
-    fetchSpecificListing: (listingId: string) => void,
-    setSpecificListing:  Dispatch<SetStateAction<ListingAPI[]>>,
-    specificPictures: PicturesAPI[],
-    fetchSpecificPictures: (listingId: string) => void,
-    setSpecificPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
+    setYourListings: Dispatch<SetStateAction<ListingAPI []>>,
+    specificListing: ListingAPI | undefined,
+    fetchSpecificListing: (listingId: string) => void | undefined,
+    setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
+    specificPictures: PicturesAPI | undefined,
+    setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
 export default class ListingsYours extends Component<ListingsYoursProps, {}> {
@@ -55,7 +54,6 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
 
     yourListingsMapper = (): JSX.Element[] => {
         return this.props.yourListings?.map((listing: ListingAPI, index: number) => {
-            { this.props.fetchSpecificPictures(listing.id) }
             return (
                 <div id='listingGrid'>
                     <Card key={index}>
@@ -66,7 +64,7 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             Item New In Box: {listing.newInBox}
                         </CardSubtitle>
                         <CardBody>
-                            <img src={this.props.specificPictures[0]?.picture_one} />
+                            <img src={this.props.specificPictures?.picture_one} />
                             <br />
                             <p>Description:</p> {listing.description}
                             <br />
@@ -74,7 +72,7 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             <br />
                             <Button href={`${APIURL}/listing/${listing.id}`}>View Listing Details</Button>
                             <Button href={`${APIURL}/listing/edit/${listing.id}`}>Edit Listing Details</Button>
-                            <Button onClick={this.deleteListing(listing.id)}>Delete Listing</Button>
+                            <Button onClick={() => {this.deleteListing(listing.id)}}>Delete Listing</Button>
                         </CardBody>
                     </Card>
                     <Routes>
@@ -84,12 +82,11 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             fetchSpecificListing={this.props.fetchSpecificListing}
                             setSpecificListing={this.props.setSpecificListing}
                             specificPictures={this.props.specificPictures}
-                            fetchSpecificPictures={this.props.fetchSpecificPictures}
                             setSpecificPictures={this.props.setSpecificPictures}
                         />}/>
                     </Routes>
                 </div>
             )
         })
-    };
+    }
 }

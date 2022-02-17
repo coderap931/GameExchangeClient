@@ -6,7 +6,7 @@ import Register from './Register';
 import Login from './Login';
 import ListingCreate from './ListingCreate';
 import ListingsYours from './ListingsYours';
-import Orders from './Orders'
+import Orders from './Orders';
 
 type ListingAPI = {
   id: string,
@@ -17,7 +17,7 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: boolean
+  pictures: PicturesAPI
 }
 
 type OrderAPI = {
@@ -25,7 +25,7 @@ type OrderAPI = {
   total_price: number,
   date_time: Date,
   shipping_address: string,
-  listingId: string
+  specificListing: ListingAPI
 }
 
 type PicturesAPI = {
@@ -46,25 +46,22 @@ type MyNavbarProps = {
   fetchYourListings: () => void,
   yourListingsMapper: () => JSX.Element[],
   fetchSpecificListing: (listingId: string) => void,
-  specificListing: ListingAPI [],
+  specificListing: ListingAPI | undefined,
   deleteListing: (listingId: string) => void,
-  pictures: PicturesAPI [],
-  fetchPictures: () => void,
-  specificPictures: PicturesAPI [],
+  specificPictures: PicturesAPI | undefined,
   fetchSpecificPictures: (listingId: string) => void,
   fetchYourOrders: () => void,
   yourOrders: OrderAPI [],
   fetchSpecificOrder: (orderId: string) => void,
-  specificOrder: OrderAPI [],
+  specificOrder: OrderAPI | undefined,
   yourOrdersMapper: () => void,
   setSessionToken: Dispatch<SetStateAction<string>>,
   setListings: Dispatch<SetStateAction<ListingAPI[]>>,
-  setPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
-  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
+  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
   setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
   setYourOrders: Dispatch<SetStateAction<OrderAPI[]>>,
-  setSpecificListing:  Dispatch<SetStateAction<ListingAPI[]>>,
-  setSpecificOrder: Dispatch<SetStateAction<OrderAPI[]>>
+  setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
+  setSpecificOrder: Dispatch<SetStateAction<OrderAPI | undefined>>
 }
 
 export default class MyNavbar extends Component<MyNavbarProps, {}> {
@@ -113,23 +110,18 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             </NavItem>
         </Navbar>
         <Routes>
-          {/* !!!!!!!!!!!!!!!ADD MORE PROPS AS NEEDED TO PASS THROUGH TO CHILD PAGES OF THE PAGES BELOW!!!!!!!!!!!!!!!!!!!!! */}
           <Route path='/listing/all' element={<Home 
             fetchListings={this.props.fetchListings}
             listings={this.props.listings}
             listingsMapper={this.props.listingsMapper}
-            setListings={this.props.setListings}
-            pictures={this.props.pictures}
-            fetchPictures={this.props.fetchPictures}
-            setPictures={this.props.setPictures}
             specificListing={this.props.specificListing}
             fetchSpecificListing={this.props.fetchSpecificListing}
             setSpecificListing={this.props.setSpecificListing}
             specificPictures={this.props.specificPictures}
-            fetchSpecificPictures={this.props.fetchSpecificPictures}
             setSpecificPictures={this.props.setSpecificPictures}
           />}/>
           <Route path='/listing/create' element={<ListingCreate
+            sessionToken={this.props.sessionToken}
             listings={this.props.listings}
           />} />
           <Route path='/listing/yours' element={<ListingsYours
@@ -141,11 +133,12 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             fetchSpecificListing={this.props.fetchSpecificListing}
             setSpecificListing={this.props.setSpecificListing}
             specificPictures={this.props.specificPictures}
-            fetchSpecificPictures={this.props.fetchSpecificPictures}
             setSpecificPictures={this.props.setSpecificPictures}
           />} />
           <Route path='user/register' element={<Register
-            updateToken={this.props.updateToken}
+              updateToken={this.props.updateToken}
+              sessionToken={this.props.sessionToken}
+              setSessionToken={this.props.setSessionToken}
           />} />
           <Route path='/user/login' element={<Login
               updateToken={this.props.updateToken}
@@ -153,6 +146,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
               setSessionToken={this.props.setSessionToken}
           />} />
           <Route path='/orders/all' element={<Orders
+              sessionToken={this.props.sessionToken}
               fetchYourOrders={this.props.fetchYourOrders}
               yourOrders={this.props.yourOrders}
               setYourOrders={this.props.setYourOrders}

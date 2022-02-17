@@ -13,7 +13,7 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: boolean
+  pictures: PicturesAPI
 }
 
 type PicturesAPI = {
@@ -27,17 +27,12 @@ type PicturesAPI = {
 type HomePageProps = {
   listings: ListingAPI [],
   fetchListings: () => void,
-  setListings: Dispatch<SetStateAction<ListingAPI[]>>,
   listingsMapper: () => void,
-  pictures: PicturesAPI [],
-  fetchPictures: () => void,
-  setPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
-  specificListing: ListingAPI [],
+  specificListing: ListingAPI | undefined,
   fetchSpecificListing: (listingId: string) => void,
-  setSpecificListing:  Dispatch<SetStateAction<ListingAPI[]>>,
-  specificPictures: PicturesAPI [],
-  fetchSpecificPictures: (listingId: string) => void,
-  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI[]>>,
+  setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
+  specificPictures: PicturesAPI | undefined,
+  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
 export default class Home extends Component<HomePageProps, {}> {
@@ -57,7 +52,7 @@ export default class Home extends Component<HomePageProps, {}> {
               Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
-                <img src={this.props.pictures[index].picture_one} /> {/*INDEX WONT WORK, PICTURES WILL NOT MATCH CORRECT ITEM, FIND WAY TO SEARCH THROUGH PICTURES ARRAY AND FIND BY LISTINGID (MAYBE SETSPECIFICPICTURES, BUT MAY OVERRIDE EXISTING DATA IN IT AS ITERATED THROUGH DURING MAP PROCESS*/}
+                <img src={this.props.listings[index].pictures.picture_one} />
                 <br />
                 <p>Description:</p> {listing.description}
                 <br />
@@ -72,9 +67,6 @@ export default class Home extends Component<HomePageProps, {}> {
               specificListing={this.props.specificListing}
               fetchSpecificListing={this.props.fetchSpecificListing}
               setSpecificListing={this.props.setSpecificListing}
-              specificPictures={this.props.specificPictures}
-              fetchSpecificPictures={this.props.fetchSpecificPictures}
-              setSpecificPictures={this.props.setSpecificPictures}
             />}/>
           </Routes>
         </div>

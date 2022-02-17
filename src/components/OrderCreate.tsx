@@ -12,11 +12,19 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: boolean
+    pictures: PicturesAPI
+  }
+
+  type PicturesAPI = {
+    picture_one: string | undefined,
+    picture_two: string | undefined,
+    picture_three: string | undefined,
+    picture_four: string | undefined,
+    picture_five: string | undefined
   }
 
 type OrderCreateProps = {
-    specificListing: ListingAPI [], 
+    specificListing: ListingAPI | undefined, 
 }
 
 type OrderCreateState = {
@@ -34,11 +42,11 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
     handleFormSubmit(event: React.SyntheticEvent) {
         let responseStatus: number;
         event.preventDefault();
-        fetch(`${APIURL}/order/create/${this.props.specificListing[0].id}`, {
+        fetch(`${APIURL}/order/create/${this.props.specificListing?.id}`, {
             method: 'POST',
             body: JSON.stringify({
                 order: {
-                    totalPrice: this.props.specificListing[0].price,
+                    totalPrice: this.props.specificListing?.price,
                     shipping_address: this.state.shipping_address
                 }
             }),
@@ -60,9 +68,9 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
     render() {
         return (
             <div>
-                <p>Item Being Purchased: $ {this.props.specificListing[0].item_name}</p>
-                <p>Item New In Box?: {this.props.specificListing[0].newInBox}</p>
-                <p>Total Price: $ {this.props.specificListing[0].price}</p>
+                <p>Item Being Purchased: $ {this.props.specificListing?.item_name}</p>
+                <p>Item New In Box?: {this.props.specificListing?.newInBox}</p>
+                <p>Total Price: $ {this.props.specificListing?.price}</p>
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormGroup>
                         <Label for='shipping_address'>
