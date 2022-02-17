@@ -69,8 +69,6 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
     super(props);
   }
 
-  //?Leave fetchListings to Navbar and have specific fetches in components, so listings update everytime a page is changed?
-
   render() {
     return (
       <div id='navbar'>
@@ -150,10 +148,6 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
               fetchYourOrders={this.props.fetchYourOrders}
               yourOrders={this.props.yourOrders}
               setYourOrders={this.props.setYourOrders}
-              specificListing={this.props.specificListing}
-              fetchSpecificListing={this.props.fetchSpecificListing}
-              specificPictures={this.props.specificPictures}
-              fetchSpecificPictures={this.props.fetchSpecificPictures}
           />} />
         </Routes>
       </div>

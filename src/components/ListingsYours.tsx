@@ -89,4 +89,19 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
             )
         })
     }
+    componentDidMount() {
+        this.props.fetchYourListings();
+      }
+    
+      componentDidUpdate() {
+        this.props.fetchYourListings();
+      }
+    
+      render() {
+        return (
+          <div>
+            {this.yourListingsMapper()}
+          </div>
+        )
+      }
 }

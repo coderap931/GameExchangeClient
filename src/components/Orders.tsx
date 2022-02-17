@@ -35,10 +35,6 @@ type OrdersProps = {
   yourOrders: OrderAPI[],
   fetchYourOrders: () => void,
   setYourOrders: Dispatch<SetStateAction<OrderAPI[]>>,
-  specificListing: ListingAPI | undefined,
-  fetchSpecificListing: (listingId: string) => void | undefined,
-  specificPictures: PicturesAPI | undefined,
-  fetchSpecificPictures: (listingId: string) => void | undefined,
 }
 
 export default class Orders extends Component<OrdersProps, {}> {
@@ -48,25 +44,23 @@ export default class Orders extends Component<OrdersProps, {}> {
 
   yourOrdersMapper = (): JSX.Element[] => {
     return this.props.yourOrders?.map((order: OrderAPI, index: number) => {
-      { this.props.fetchSpecificListing(order.specificListing.id) }
-      { this.props.fetchSpecificPictures(order.specificListing.id) }
       return (
         <div id='orderGrid'>
           <Card key={index}>
             <CardTitle>
-              {this.props.specificListing?.item_name}
+              {order.specificListing?.item_name}
             </CardTitle>
             <CardSubtitle>
               Date/Time Ordered: {order.date_time}
             </CardSubtitle>
             <CardBody>
-              <img src={this.props.specificPictures?.picture_one} />
+              <img src={order.specificListing.pictures?.picture_one} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {this.props.specificListing?.description}
+              <p>Description:</p> {order.specificListing?.description}
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
@@ -77,4 +71,20 @@ export default class Orders extends Component<OrdersProps, {}> {
       )
     })
   };
+
+  componentDidMount() {
+    this.props.fetchYourOrders();
+  }
+
+  componentDidUpdate() {
+    this.props.fetchYourOrders();
+  }
+
+  render() {
+    return (
+      <div>
+        {this.yourOrdersMapper()}
+      </div>
+    )
+  }
 }

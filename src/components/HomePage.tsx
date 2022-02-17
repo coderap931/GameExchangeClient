@@ -75,11 +75,11 @@ export default class Home extends Component<HomePageProps, {}> {
   };
 
   componentDidMount() {
-    this.props.fetchListings;
+    this.props.fetchListings();
   }
 
   componentDidUpdate() {
-    this.props.fetchListings;
+    this.props.fetchListings();
   }
 
   render() {

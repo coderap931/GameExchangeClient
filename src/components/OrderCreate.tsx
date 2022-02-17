@@ -56,9 +56,8 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
         })
             .then((response) => {
                 responseStatus = response.status;
-                return response.json();
             })
-            .then((json) => {
+            .then(() => {
                 if (responseStatus === 200) {
                     <Button href='/all'>Return home</Button>
                 }
