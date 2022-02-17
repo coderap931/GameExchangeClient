@@ -27,7 +27,6 @@ type PicturesAPI = {
 type HomePageProps = {
   listings: ListingAPI [],
   fetchListings: () => void,
-  listingsMapper: () => void,
   specificListing: ListingAPI | undefined,
   fetchSpecificListing: (listingId: string) => void,
   setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
@@ -40,7 +39,8 @@ export default class Home extends Component<HomePageProps, {}> {
     super(props);
   }
   
-  listingMapper() {
+  listingsMapper = () => {
+    console.log(this.props.listings);
     return this.props.listings?.map((listing, index) => {
       return (
         <div id='listingGrid'>
@@ -85,7 +85,7 @@ export default class Home extends Component<HomePageProps, {}> {
   render() {
     return (
       <div>
-        {this.listingMapper()}
+        {this.listingsMapper()}
       </div>
     )
   }

@@ -61,7 +61,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
         }
     };
 
-    handleListingFormSubmit(event: React.SyntheticEvent) {
+    handleListingFormSubmit = (event: React.SyntheticEvent) => {
         let responseStatus: number;
         event.preventDefault();
         fetch(`${APIURL}/listing/create`, {
@@ -77,7 +77,8 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                 }
             }),
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
             })
         })
             .then((response) => {
@@ -85,19 +86,20 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                 return response.json();
             })
             .then((json) => {
+                console.log(json);
                 this.setState({
                     id: json.listing.id
                 })
                 if (responseStatus === 200) {
                 <div>
-                    <p>Listing Creation Successfull</p>
+                    <p>Listing Creation Successfully</p>
                     <Button href='/all'>Return home</Button>
                 </div>
                 }
             })
     };
 
-    handlePicturesFormSubmit(event: React.SyntheticEvent) {
+    handlePicturesFormSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
         fetch(`${APIURL}/pictures/edit/${this.state.id}`, {
             method: 'PUT',
@@ -124,7 +126,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
             })
     }
 
-    handleFormSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         this.handleListingFormSubmit(event);
         this.handlePicturesFormSubmit(event);
     }
@@ -152,7 +154,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                     <Input
                         id='description'
                         name='description'
-                        placeholder='Game XYZ, an openb-world RPG with several Game of The Year Awards'
+                        placeholder='Game XYZ, an open-world RPG with several Game of The Year Awards'
                         type='text'
                         value={this.state.description}
                         onChange={(e) => this.setState({description: (e.target.value)})}
@@ -171,7 +173,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         onChange={(e) => this.setState({platform: (e.target.value)})}
                     />
                 </FormGroup>
-                <FormGroup tag='fieldset' for='newInBox'>
+                <FormGroup tag='fieldset'>
                     <legend>New In Box</legend>
                     <FormGroup>
                         <Label check>
@@ -256,7 +258,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         id='picture_four'
                         name='picture_four'
                         type='text'
-                        value={this.state.picture_three}
+                        value={this.state.picture_four}
                         onChange={(e) => this.setState({ picture_four: (e.target.value) })}
                     />
                 </FormGroup>
@@ -268,7 +270,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         id='picture_five'
                         name='picture_five'
                         type='text'
-                        value={this.state.picture_three}
+                        value={this.state.picture_five}
                         onChange={(e) => this.setState({ picture_five: (e.target.value) })}
                     />
                 </FormGroup>

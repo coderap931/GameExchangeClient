@@ -1,5 +1,6 @@
 import React, {Component, Dispatch, SetStateAction} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import APIURL from '../helpers/environment';
 
 type LoginState = {
     username: string | undefined,
@@ -34,9 +35,9 @@ export default class Login extends Component<LoginProps, LoginState> {
         }
     }
 
-    handleFormSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        fetch(`${process.env.API_URL}/user/login`, {
+        fetch(`${APIURL}/user/login`, {
             method: 'POST',
             body: JSON.stringify({
                 user: {

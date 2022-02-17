@@ -3,12 +3,12 @@ import APIURL from "../helpers/environment";
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 
 type RegisterState = {
-    first_name: string | undefined,
-    last_name: string | undefined,
-    username: string | undefined,
-    email: string | undefined,
-    password: string | undefined,
-    role: string | undefined,
+    first_name: string,
+    last_name: string,
+    username: string,
+    email: string,
+    password: string,
+    role: string,
 }
 
 type RegisterProps = {
@@ -26,11 +26,11 @@ export default class Register extends Component<RegisterProps, RegisterState> {
             username: '',
             email: '',
             password: '',
-            role: 'Client',
+            role: '',
         }
     };
 
-    handleFormSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         let responseStatus: number;
         event.preventDefault();
         fetch(`${APIURL}/user/register`, {
@@ -42,6 +42,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                     username: this.state.username,
                     email: this.state.email,
                     password: this.state.password,
+                    role: 'Client'
                 }
             }),
             headers: new Headers({

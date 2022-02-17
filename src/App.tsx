@@ -276,7 +276,6 @@ const App: React.FunctionComponent = () => {
             listings={listings}
             fetchListings={fetchListings}
             yourListings={yourListings}
-            listingsMapper={listingsMapper}
             fetchYourListings={fetchYourListings}
             yourListingsMapper={yourListingsMapper}
             fetchSpecificListing={fetchSpecificListing}

@@ -42,7 +42,6 @@ type MyNavbarProps = {
   listings: ListingAPI [],
   fetchListings: () => void,
   yourListings: ListingAPI [],
-  listingsMapper: () => void,
   fetchYourListings: () => void,
   yourListingsMapper: () => JSX.Element[],
   fetchSpecificListing: (listingId: string) => void,
@@ -111,7 +110,6 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
           <Route path='/listing/all' element={<Home 
             fetchListings={this.props.fetchListings}
             listings={this.props.listings}
-            listingsMapper={this.props.listingsMapper}
             specificListing={this.props.specificListing}
             fetchSpecificListing={this.props.fetchSpecificListing}
             setSpecificListing={this.props.setSpecificListing}
