@@ -24,7 +24,8 @@ type ListingAPI = {
   }
 
 type OrderCreateProps = {
-    listing: ListingAPI 
+    listing: ListingAPI,
+    sessionToken: string
 }
 
 type OrderCreateState = {
@@ -51,7 +52,8 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
                 }
             }),
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
             })
         })
             .then((response) => {

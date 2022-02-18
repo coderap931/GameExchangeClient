@@ -60,7 +60,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
         }
     };
 
-    handleListingFormSubmit = (event: React.SyntheticEvent) => {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         let responseStatus: number;
         event.preventDefault();
         fetch(`${APIURL}/listing/create`, {
@@ -89,12 +89,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                 this.setState({
                     id: json.listing.id
                 })
-                if (responseStatus === 200) {
-                <div>
-                    <p>Listing Creation Successfully</p>
-                    <Button href='/all'>Return home</Button>
-                </div>
-                }
+                this.handlePicturesFormSubmit(event);
             })
     };
 
@@ -123,11 +118,6 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                     <p>But Pictures Failed to Update</p>
                 }
             })
-    }
-
-    handleFormSubmit = (event: React.SyntheticEvent) => {
-        this.handleListingFormSubmit(event);
-        this.handlePicturesFormSubmit(event);
     }
 
     render() {

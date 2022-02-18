@@ -70,6 +70,7 @@ export default class Orders extends Component<OrdersProps, {}> {
           </Card>
           <Routes>
             <Route path={`listinginfo/:id`} element={<ListingDetails
+              sessionToken={this.props.sessionToken}
               listing={order.listing}
             />} />
           </Routes>

@@ -24,7 +24,8 @@ type ListingAPI = {
   }
 
   type ListingDetailsProps = {
-    listing: ListingAPI
+    listing: ListingAPI,
+    sessionToken: string
   }
 
 export default class ListingDetails extends Component<ListingDetailsProps, {}> {
@@ -116,6 +117,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                 </Container>
                 <Routes>
                     <Route path={`order/create/:id`} element={<OrderCreate
+                        sessionToken={this.props.sessionToken}
                         listing={listing}
                     />}/>
                 </Routes>

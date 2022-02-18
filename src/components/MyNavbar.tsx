@@ -108,6 +108,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
         </Navbar>
         <Routes>
           <Route path='/listing/all/*' element={<Home 
+            sessionToken={this.props.sessionToken}
             fetchListings={this.props.fetchListings}
             listings={this.props.listings}
           />}/>

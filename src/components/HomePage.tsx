@@ -24,6 +24,7 @@ type PicturesAPI = {
 }
 
 type HomePageProps = {
+  sessionToken: string,
   listings: ListingAPI [],
   fetchListings: () => void,
 }
@@ -68,6 +69,7 @@ export default class Home extends Component<HomePageProps, {}> {
           </Card>
           <Routes>
             <Route path={`listinginfo/:id/*`} element={<ListingDetails
+              sessionToken={this.props.sessionToken}
               listing={listing}
             />} />
           </Routes>
