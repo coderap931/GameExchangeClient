@@ -22,7 +22,7 @@ type OrderAPI = {
   total_price: number,
   date_time: Date,
   shipping_address: string,
-  specificListing: ListingAPI
+  listing: ListingAPI
 }
 
 type PicturesAPI = {
@@ -36,7 +36,6 @@ type PicturesAPI = {
 const App: React.FunctionComponent = () => {
   const [sessionToken, setSessionToken] = useState<string>('');
   const [listings, setListings] = useState<ListingAPI []>([]);
-  const [pictures, setPictures] = useState<PicturesAPI []>([]);
   const [specificPictures, setSpecificPictures] = useState<PicturesAPI | undefined>();
   const [yourListings, setYourListings] = useState<ListingAPI []>([]);
   const [yourOrders, setYourOrders] = useState<OrderAPI []>([]);
@@ -63,34 +62,6 @@ const App: React.FunctionComponent = () => {
       })
   };
 
-  //!Map Listings
-  const listingsMapper = (): JSX.Element [] => {
-    return listings?.map((listing: ListingAPI, index: number) => {
-      {fetchPictures()}
-      return (
-        <div id='listingGrid'>
-          <Card key={index}>
-            <CardTitle>
-              {listing.item_name}
-            </CardTitle>
-            <CardSubtitle>
-              Item New In Box: {listing.newInBox}
-            </CardSubtitle>
-            <CardBody>
-                <img src={pictures[index]?.picture_one} />
-                <br />
-                <p>Description:</p> {listing.description}
-                <br />
-                <p>Price: $</p> {listing.price}
-                <br />
-                <Button href={`${APIURL}/listing/${listing.id}`}>View More Details!</Button>
-            </CardBody>
-          </Card>
-        </div>
-      )
-    })
-  };
-
   //!Fetch Your Listings
   const fetchYourListings = (): void => {
     if (sessionToken !== '') {
@@ -115,7 +86,6 @@ const App: React.FunctionComponent = () => {
   //!Map Your Listings
   const yourListingsMapper = (): JSX.Element [] => {
     return yourListings?.map((listing: ListingAPI, index: number) => {
-      {fetchSpecificPictures(listing.id)}
       return (
         <div id='listingGrid'>
           <Card key={index}>
@@ -167,20 +137,6 @@ const App: React.FunctionComponent = () => {
       .then(() => fetchYourListings())
   };
 
-  //!Fetch Pictures
-  const fetchPictures = (): void => {
-    fetch(`${APIURL}/pictures/all`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-      })
-    })
-      .then((res) => res.json())
-      .then((picturesData) => {
-        setPictures(picturesData);
-      })
-  };
-
    //!Fetch Specific Pictures
    const fetchSpecificPictures = (listingId: string): void=> {
     fetch(`${APIURL}/pictures/lookup/${listingId}`, {
@@ -222,23 +178,23 @@ const App: React.FunctionComponent = () => {
         <div id='orderGrid'>
           <Card key={index}>
             <CardTitle>
-              {order.specificListing.item_name}
+              {order.listing.item_name}
             </CardTitle>
             <CardSubtitle>
               Date/Time Ordered: {order.date_time}
             </CardSubtitle>
             <CardBody>
-              <img src={order.specificListing.pictures.picture_one} />
+              <img src={order.listing.pictures.picture_one} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {order.specificListing.description}
+              <p>Description:</p> {order.listing.description}
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
-              <Button href={`${APIURL}/listing/${order.specificListing.id}`}>View Listing Details</Button>
+              <Button href={`${APIURL}/listing/${order.listing.id}`}>View Listing Details</Button>
             </CardBody>
           </Card>
         </div>

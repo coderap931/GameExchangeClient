@@ -25,10 +25,8 @@ type PicturesAPI = {
 
 type ListingEditProps = {
     sessionToken: string,
-    fetchSpecificListing: (listingId: string) => void | undefined,
-    specificListing: ListingAPI | undefined,
+    listing: ListingAPI,
     setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
-    specificPictures: PicturesAPI | undefined,
     setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
@@ -51,24 +49,24 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
     constructor(props: ListingEditProps) {
         super(props);
         this.state = {
-            id: this.props.specificListing?.id,
-            item_name: this.props.specificListing?.item_name,
-            description: this.props.specificListing?.description,
-            platform: this.props.specificListing?.platform,
-            newInBox: this.props.specificListing?.newInBox,
-            condition: this.props.specificListing?.condition,
-            price: this.props.specificListing?.price,
-            picture_one: this.props.specificListing?.pictures.picture_one,
-            picture_two: this.props.specificListing?.pictures.picture_two,
-            picture_three: this.props.specificListing?.pictures.picture_three,
-            picture_four: this.props.specificListing?.pictures.picture_four,
-            picture_five: this.props.specificListing?.pictures.picture_five,
+            id: this.props.listing.id,
+            item_name: this.props.listing.item_name,
+            description: this.props.listing.description,
+            platform: this.props.listing.platform,
+            newInBox: this.props.listing.newInBox,
+            condition: this.props.listing.condition,
+            price: this.props.listing.price,
+            picture_one: this.props.listing.pictures.picture_one,
+            picture_two: this.props.listing.pictures.picture_two,
+            picture_three: this.props.listing.pictures.picture_three,
+            picture_four: this.props.listing.pictures.picture_four,
+            picture_five: this.props.listing.pictures.picture_five,
         }
     }
 
-    handleListingFormSubmit(event: React.SyntheticEvent) {
+    handleListingFormSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        fetch(`${APIURL}/listing/edit/${this.props.specificListing?.id}`, {
+        fetch(`${APIURL}/listing/edit/${this.props.listing.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 listing: {
@@ -95,7 +93,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
             })
     };
 
-    handlePicturesFormSubmit(event: React.SyntheticEvent) {
+    handlePicturesFormSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
         fetch(`${APIURL}/pictures/edit/${this.state.id}`, {
             method: 'PUT',
@@ -122,7 +120,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
             })
     }
 
-    handleFormSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         this.handleListingFormSubmit(event);
         this.handlePicturesFormSubmit(event);
     }

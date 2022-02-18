@@ -38,7 +38,6 @@ type ListingAPI = {
   }
 
 type ListingCreateProps = {
-    listings: ListingAPI [],
     sessionToken: string,
 }
 

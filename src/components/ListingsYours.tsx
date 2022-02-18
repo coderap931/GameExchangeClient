@@ -1,7 +1,6 @@
-import React, { Component, Dispatch, SetStateAction } from 'react';
-import {Routes, Route} from 'react-router-dom';
-import { Card, CardTitle, CardBody, CardSubtitle, Button } from 'reactstrap';
-import APIURL from '../helpers/environment';
+import { Component, Dispatch, SetStateAction } from 'react';
+import {Routes, Route, NavLink} from 'react-router-dom';
+import { Card, CardTitle, CardBody, CardSubtitle, Button} from 'reactstrap';
 import ListingEdit from './ListingEdit';
 
 type ListingAPI = {
@@ -29,10 +28,10 @@ type ListingsYoursProps = {
     yourListings: ListingAPI [],
     fetchYourListings: () => void,
     setYourListings: Dispatch<SetStateAction<ListingAPI []>>,
-    specificListing: ListingAPI | undefined,
-    fetchSpecificListing: (listingId: string) => void | undefined,
+    deleteListing: (listingId: string) => void,
+    // specificListing: ListingAPI | undefined,
+    // fetchSpecificListing: (listingId: string) => void | undefined,
     setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
-    specificPictures: PicturesAPI | undefined,
     setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
@@ -41,22 +40,11 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
         super(props);
     }
 
-    deleteListing(listingId: string): void {
-        fetch(`${APIURL}/listing/delete/${listingId}`, {
-            method: 'DELETE',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.props.sessionToken}`
-            })
-        })
-            .then(() => this.props.fetchYourListings())
-    }
-
     yourListingsMapper = (): JSX.Element[] => {
         return this.props.yourListings?.map((listing: ListingAPI, index: number) => {
             return (
-                <div id='listingGrid'>
-                    <Card key={index}>
+                <div id='listingGrid' key={listing.id}>
+                    <Card>
                         <CardTitle>
                             {listing.item_name}
                         </CardTitle>
@@ -64,24 +52,22 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             Item New In Box: {listing.newInBox}
                         </CardSubtitle>
                         <CardBody>
-                            <img src={this.props.specificPictures?.picture_one} />
+                            <img src={listing.pictures?.picture_one} />
                             <br />
                             <p>Description:</p> {listing.description}
                             <br />
                             <p>Price: $</p> {listing.price}
                             <br />
-                            <Button href={`${APIURL}/listing/${listing.id}`}>View Listing Details</Button>
-                            <Button href={`${APIURL}/listing/edit/${listing.id}`}>Edit Listing Details</Button>
-                            <Button onClick={() => {this.deleteListing(listing.id)}}>Delete Listing</Button>
+                            <NavLink to={`listing/${listing.id}`}>View Listing Details</NavLink>
+                            <NavLink to={`listing/edit/${listing.id}`}>Edit Listing Details</NavLink>
+                            <Button onClick={() => {this.props.deleteListing(listing.id)}}>Delete Listing</Button>
                         </CardBody>
                     </Card>
                     <Routes>
-                        <Route path={`${APIURL}/listing/edit/${listing.id}`} element={<ListingEdit 
+                        <Route path={`listing/edit/${listing.id}`} element={<ListingEdit 
                             sessionToken={this.props.sessionToken}
-                            specificListing={this.props.specificListing}
-                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            listing={listing}
                             setSpecificListing={this.props.setSpecificListing}
-                            specificPictures={this.props.specificPictures}
                             setSpecificPictures={this.props.setSpecificPictures}
                         />}/>
                     </Routes>

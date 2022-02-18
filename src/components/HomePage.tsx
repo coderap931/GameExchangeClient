@@ -1,7 +1,6 @@
-import React, {Component, Dispatch, SetStateAction} from 'react';
-import {Routes, Route} from 'react-router-dom';
-import {Card, CardTitle, CardBody, CardSubtitle, CardLink} from 'reactstrap';
-import APIURL from "../helpers/environment";
+import {Component} from 'react';
+import {Routes, Route, NavLink} from 'react-router-dom';
+import {Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
 import ListingDetails from './ListingDetails';
 
 type ListingAPI = {
@@ -27,47 +26,50 @@ type PicturesAPI = {
 type HomePageProps = {
   listings: ListingAPI [],
   fetchListings: () => void,
-  specificListing: ListingAPI | undefined,
-  fetchSpecificListing: (listingId: string) => void,
-  setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
-  specificPictures: PicturesAPI | undefined,
-  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
 export default class Home extends Component<HomePageProps, {}> {
   constructor(props: HomePageProps) {
     super(props);
   }
+
+  newInBox = (listing: ListingAPI) => {
+    let newStatus = listing.newInBox;
+    if (newStatus === true) {
+      return (
+        <p>Yes</p>
+      )
+    } else {
+      <p>No</p>
+    }
+  }
   
   listingsMapper = () => {
     console.log(this.props.listings);
-    return this.props.listings?.map((listing, index) => {
+    return this.props.listings.map((listing, index) => {
       return (
-        <div id='listingGrid'>
+        <div id='listingGrid' key={index}>
           <Card key={index}>
             <CardTitle>
               {listing.item_name}
             </CardTitle>
             <CardSubtitle>
-              Item New In Box: {listing.newInBox}
+              Item New In Box: {this.newInBox(listing)}
             </CardSubtitle>
             <CardBody>
-                <img src={this.props.listings[index].pictures.picture_one} />
-                <br />
+                {/* <img src={this.props.listings[index]?.pictures.picture_one} />
+                <br /> */}
                 <p>Description:</p> {listing.description}
                 <br />
                 <p>Price: $</p> {listing.price}
                 <br />
-                <CardLink href={`${APIURL}/listing/${listing.id}`}>View More Details!</CardLink>
+                <NavLink to={`listinginfo/${listing.id}/*`}>View More Details!</NavLink>
             </CardBody>
           </Card>
           <Routes>
-            <Route path={`${APIURL}/listing/${listing.id}`} element={<ListingDetails
-              listingId={`${listing.id}`}
-              specificListing={this.props.specificListing}
-              fetchSpecificListing={this.props.fetchSpecificListing}
-              setSpecificListing={this.props.setSpecificListing}
-            />}/>
+            <Route path={`listinginfo/:id/*`} element={<ListingDetails
+              listing={listing}
+            />} />
           </Routes>
         </div>
       )
@@ -75,10 +77,6 @@ export default class Home extends Component<HomePageProps, {}> {
   };
 
   componentDidMount() {
-    this.props.fetchListings();
-  }
-
-  componentDidUpdate() {
     this.props.fetchListings();
   }
 

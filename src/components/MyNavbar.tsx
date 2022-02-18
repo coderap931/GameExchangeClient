@@ -1,6 +1,6 @@
-import React, {Component, Dispatch, SetStateAction} from 'react';
-import {Routes, Route} from 'react-router-dom';
-import {Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import {Component, Dispatch, SetStateAction} from 'react';
+import {Routes, Route, NavLink} from 'react-router-dom';
+import {Navbar, NavbarBrand, NavItem} from 'reactstrap';
 import Home from './HomePage';
 import Register from './Register';
 import Login from './Login';
@@ -25,7 +25,7 @@ type OrderAPI = {
   total_price: number,
   date_time: Date,
   shipping_address: string,
-  specificListing: ListingAPI
+  listing: ListingAPI
 }
 
 type PicturesAPI = {
@@ -72,66 +72,58 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
     return (
       <div id='navbar'>
         <Navbar>
-          <NavbarBrand href='/'>
+          <NavbarBrand>
             Game Exchange
           </NavbarBrand>
             <NavItem>
-              <NavLink href='/listing/all'>
+              <NavLink to='/listing/all/'>
                 Home / View All Listings
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/listing/create'>
+              <NavLink to='/listing/create'>
                 Create New Listing
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/listing/yours'>
+              <NavLink to='/listing/yours'>
                 View Your Listings
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/user/register'>
+              <NavLink to='/user/register'>
                 Create Account
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/user/login'>
+              <NavLink to='/user/login'>
                 Login
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href='/orders/all'>
-                View Orders
+              <NavLink to='/orders/all'>
+                View Your Orders
               </NavLink>
             </NavItem>
         </Navbar>
         <Routes>
-          <Route path='/listing/all' element={<Home 
+          <Route path='/listing/all/*' element={<Home 
             fetchListings={this.props.fetchListings}
             listings={this.props.listings}
-            specificListing={this.props.specificListing}
-            fetchSpecificListing={this.props.fetchSpecificListing}
-            setSpecificListing={this.props.setSpecificListing}
-            specificPictures={this.props.specificPictures}
-            setSpecificPictures={this.props.setSpecificPictures}
           />}/>
           <Route path='/listing/create' element={<ListingCreate
             sessionToken={this.props.sessionToken}
-            listings={this.props.listings}
           />} />
           <Route path='/listing/yours' element={<ListingsYours
             sessionToken={this.props.sessionToken}
             fetchYourListings={this.props.fetchYourListings}
             setYourListings={this.props.setYourListings}
             yourListings={this.props.yourListings}
-            specificListing={this.props.specificListing}
-            fetchSpecificListing={this.props.fetchSpecificListing}
+            deleteListing={this.props.deleteListing}
             setSpecificListing={this.props.setSpecificListing}
-            specificPictures={this.props.specificPictures}
             setSpecificPictures={this.props.setSpecificPictures}
           />} />
-          <Route path='user/register' element={<Register
+          <Route path='/user/register' element={<Register
               updateToken={this.props.updateToken}
               sessionToken={this.props.sessionToken}
               setSessionToken={this.props.setSessionToken}

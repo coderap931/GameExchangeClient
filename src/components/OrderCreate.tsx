@@ -24,7 +24,7 @@ type ListingAPI = {
   }
 
 type OrderCreateProps = {
-    specificListing: ListingAPI | undefined, 
+    listing: ListingAPI 
 }
 
 type OrderCreateState = {
@@ -39,14 +39,14 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
         }
     };
 
-    handleFormSubmit(event: React.SyntheticEvent) {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         let responseStatus: number;
         event.preventDefault();
-        fetch(`${APIURL}/order/create/${this.props.specificListing?.id}`, {
+        fetch(`${APIURL}/order/create/${this.props.listing.id}`, {
             method: 'POST',
             body: JSON.stringify({
                 order: {
-                    totalPrice: this.props.specificListing?.price,
+                    totalPrice: this.props.listing.price,
                     shipping_address: this.state.shipping_address
                 }
             }),
@@ -65,11 +65,14 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
     };
 
     render() {
+        console.log(this.props.listing);
+        const {props, state}=this;
+        const {listing}=props;
         return (
             <div>
-                <p>Item Being Purchased: $ {this.props.specificListing?.item_name}</p>
-                <p>Item New In Box?: {this.props.specificListing?.newInBox}</p>
-                <p>Total Price: $ {this.props.specificListing?.price}</p>
+                <p>Item Being Purchased: {listing.item_name}</p>
+                <p>Item New In Box?: {listing.newInBox}</p>
+                <p>Total Price: $ {listing.price}</p>
                 <Form onSubmit={this.handleFormSubmit}>
                     <FormGroup>
                         <Label for='shipping_address'>
