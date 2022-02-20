@@ -34,12 +34,13 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
             <p>Yes</p>
           )
         } else {
-          <p>No</p>
+            return (
+                <p>No</p>
+            )
         }
       }
 
     render() {
-        console.log(this.props.listing);
         const {props, state}=this;
         const {listing}=props;
         return (

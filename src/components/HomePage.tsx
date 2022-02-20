@@ -35,16 +35,17 @@ export default class Home extends Component<HomePageProps, {}> {
         <p>Yes</p>
       )
     } else {
-      <p>No</p>
+      return (
+        <p>No</p>
+      )
     }
   }
   
   listingsMapper = () => {
-    console.log(this.props.listings);
-    return this.props.listings.map((listing, index) => {
+    return this.props.listings.map((listing) => {
       return (
-        <div id='listingGrid' key={index}>
-          <Card key={index}>
+        <div id='listingGrid' key={listing.id}>
+          <Card>
             <CardTitle>
               {listing.item_name}
             </CardTitle>
@@ -52,7 +53,7 @@ export default class Home extends Component<HomePageProps, {}> {
               Item New In Box: {this.newInBox(listing)}
             </CardSubtitle>
             <CardBody>
-                <img src={this.props.listings[index].pictureOne} />
+                <img src={listing.pictureOne} />
                 <br />
                 <p>Description:</p> {listing.description}
                 <br />

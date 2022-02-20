@@ -1,6 +1,7 @@
 import { Component, Dispatch, SetStateAction } from 'react';
-import {Routes, Route, NavLink} from 'react-router-dom';
-import { Card, CardTitle, CardBody, CardSubtitle, Button} from 'reactstrap';
+import { Routes, Route, NavLink } from 'react-router-dom';
+import { Card, CardTitle, CardBody, CardSubtitle, Button } from 'reactstrap';
+import ListingDetails from './ListingDetails';
 import ListingEdit from './ListingEdit';
 
 type ListingAPI = {
@@ -19,11 +20,11 @@ type ListingAPI = {
 
 type ListingsYoursProps = {
     sessionToken: string,
-    yourListings: ListingAPI [],
+    yourListings: ListingAPI[],
     fetchYourListings: () => void,
-    setYourListings: Dispatch<SetStateAction<ListingAPI []>>,
+    setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
     deleteListing: (listingId: string) => void,
-    setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
+    setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
 }
 
 export default class ListingsYours extends Component<ListingsYoursProps, {}> {
@@ -32,7 +33,7 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
     }
 
     yourListingsMapper = (): JSX.Element[] => {
-        return this.props.yourListings?.map((listing: ListingAPI, index: number) => {
+        return this.props.yourListings?.map((listing: ListingAPI) => {
             return (
                 <div id='listingGrid' key={listing.id}>
                     <Card>
@@ -49,17 +50,21 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             <br />
                             <p>Price: $</p> {listing.price}
                             <br />
-                            <NavLink to={`listing/${listing.id}`}>View Listing Details</NavLink>
-                            <NavLink to={`listing/edit/${listing.id}`}>Edit Listing Details</NavLink>
-                            <Button onClick={() => {this.props.deleteListing(listing.id)}}>Delete Listing</Button>
+                            <NavLink to={`listinginfo/${listing.id}/*`}>View Listing Details</NavLink>
+                            <NavLink to={`listing/edit/${listing.id}/*`}>Edit Listing Details</NavLink>
+                            <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteListing(listing.id) }}>Delete Listing</NavLink>
                         </CardBody>
                     </Card>
                     <Routes>
-                        <Route path={`listing/edit/${listing.id}`} element={<ListingEdit 
+                        <Route path={`listinginfo/:id/*`} element={<ListingDetails
+                            sessionToken={this.props.sessionToken}
+                            listing={listing}
+                        />} />
+                        <Route path={`listing/edit/${listing.id}/*`} element={<ListingEdit
                             sessionToken={this.props.sessionToken}
                             listing={listing}
                             setSpecificListing={this.props.setSpecificListing}
-                        />}/>
+                        />} />
                     </Routes>
                 </div>
             )
@@ -67,13 +72,13 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
     }
     componentDidMount() {
         this.props.fetchYourListings();
-      }
-    
-      render() {
+    }
+
+    render() {
         return (
-          <div>
-            {this.yourListingsMapper()}
-          </div>
+            <div>
+                {this.yourListingsMapper()}
+            </div>
         )
-      }
+    }
 }

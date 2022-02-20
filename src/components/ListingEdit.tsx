@@ -89,7 +89,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
         return (
             <Form onSubmit={this.handleFormSubmit}>
                 <FormGroup>
-                    <Label for='item_name'>
+                    <Label>
                         Item Name
                     </Label>
                     <Input
@@ -102,7 +102,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='description'>
+                    <Label>
                         General Item Description
                     </Label>
                     <Input
@@ -115,7 +115,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='platform'>
+                    <Label>
                         Platform
                     </Label>
                     <Input
@@ -127,7 +127,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                         onChange={(e) => this.setState({ platform: (e.target.value) })}
                     />
                 </FormGroup>
-                <FormGroup tag='fieldset' for='newInBox'>
+                <FormGroup tag='fieldset'>
                     <legend>New In Box</legend>
                     <FormGroup>
                         <Label check>
@@ -143,7 +143,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     </FormGroup>
                 </FormGroup>
                 <FormGroup>
-                    <Label for='condition'>
+                    <Label>
                         Condition Description
                     </Label>
                     <Input
@@ -156,7 +156,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='price'>
+                    <Label>
                         Price (in USD)
                     </Label>
                     <Input
@@ -169,7 +169,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='pictureOne'>
+                    <Label>
                         Picture One
                     </Label>
                     <Input
@@ -181,7 +181,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='pictureTwo'>
+                    <Label>
                         Picture Two
                     </Label>
                     <Input
@@ -193,7 +193,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='pictureThree'>
+                    <Label>
                         Picture Three
                     </Label>
                     <Input

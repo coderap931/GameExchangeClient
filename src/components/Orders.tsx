@@ -39,11 +39,12 @@ export default class Orders extends Component<OrdersProps, {}> {
 
   yourOrdersMapper = (): JSX.Element[] => {
     return this.props.yourOrders?.map((order: OrderAPI) => {
+      console.log(order);
       return (
         <div id='orderGrid' key={order.id}>
           <Card>
             <CardTitle>
-              {order.listing?.item_name}
+              {order.listing.item_name}
             </CardTitle>
             <CardSubtitle>
               Date/Time Ordered: {order.date_time}
@@ -55,7 +56,7 @@ export default class Orders extends Component<OrdersProps, {}> {
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {order.listing?.description}
+              <p>Description:</p> {order.listing.description}
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
@@ -63,7 +64,7 @@ export default class Orders extends Component<OrdersProps, {}> {
             </CardBody>
           </Card>
           <Routes>
-            <Route path={`listinginfo/:id`} element={<ListingDetails
+            <Route path={`listinginfo/:id/*`} element={<ListingDetails
               sessionToken={this.props.sessionToken}
               listing={order.listing}
             />} />

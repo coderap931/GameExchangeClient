@@ -73,32 +73,32 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/listing/create'>
+              <NavLink to='/listing/create/'>
                 Create New Listing
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/listing/yours'>
+              <NavLink to='/listing/yours/'>
                 View Your Listings
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/user/register'>
+              <NavLink to='/user/register/'>
                 Create Account
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/user/login'>
+              <NavLink to='/user/login/'>
                 Login
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink to='/listing/all/' onClick={this.props.logout}>
-                Login
+                Logout
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to='/orders/all'>
+              <NavLink to='/orders/all/'>
                 View Your Orders
               </NavLink>
             </NavItem>
@@ -109,10 +109,10 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             fetchListings={this.props.fetchListings}
             listings={this.props.listings}
           />}/>
-          <Route path='/listing/create' element={<ListingCreate
+          <Route path='/listing/create/*' element={<ListingCreate
             sessionToken={this.props.sessionToken}
           />} />
-          <Route path='/listing/yours' element={<ListingsYours
+          <Route path='/listing/yours/*' element={<ListingsYours
             sessionToken={this.props.sessionToken}
             fetchYourListings={this.props.fetchYourListings}
             setYourListings={this.props.setYourListings}
@@ -120,17 +120,17 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             deleteListing={this.props.deleteListing}
             setSpecificListing={this.props.setSpecificListing}
           />} />
-          <Route path='/user/register' element={<Register
+          <Route path='/user/register/*' element={<Register
               updateToken={this.props.updateToken}
               sessionToken={this.props.sessionToken}
               setSessionToken={this.props.setSessionToken}
           />} />
-          <Route path='/user/login' element={<Login
+          <Route path='/user/login/*' element={<Login
               updateToken={this.props.updateToken}
               sessionToken={this.props.sessionToken}
               setSessionToken={this.props.setSessionToken}
           />} />
-          <Route path='/orders/all' element={<Orders
+          <Route path='/orders/all/*' element={<Orders
               sessionToken={this.props.sessionToken}
               fetchYourOrders={this.props.fetchYourOrders}
               yourOrders={this.props.yourOrders}

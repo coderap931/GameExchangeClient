@@ -23,14 +23,16 @@ type OrderCreateProps = {
 }
 
 type OrderCreateState = {
-    shipping_address: string
+    shipping_address: string,
+    total_price: number
 }
 
 export default class OrderCreate extends Component<OrderCreateProps, OrderCreateState> {
     constructor(props: OrderCreateProps) {
         super(props);
         this.state = {
-            shipping_address: ''
+            shipping_address: '',
+            total_price: this.props.listing.price
         }
     };
 
@@ -41,7 +43,7 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
             method: 'POST',
             body: JSON.stringify({
                 order: {
-                    totalPrice: this.props.listing.price,
+                    total_price: this.state.total_price,
                     shipping_address: this.state.shipping_address
                 }
             }),
@@ -52,17 +54,12 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
         })
             .then((response) => {
                 responseStatus = response.status;
+                return response.json();
             })
-            .then(() => {
-                if (responseStatus === 200) {
-                    <Button href='/all'>Return home</Button>
-                }
-            })
-    };
+    }
 
     render() {
-        console.log(this.props.listing);
-        const {props, state}=this;
+        const {props}=this;
         const {listing}=props;
         return (
             <div>
