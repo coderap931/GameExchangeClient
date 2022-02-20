@@ -17,7 +17,9 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: PicturesAPI
+  pictureOne: string,
+  pictureTwo: string | undefined,
+  pictureThree: string | undefined
 }
 
 type OrderAPI = {
@@ -28,17 +30,10 @@ type OrderAPI = {
   listing: ListingAPI
 }
 
-type PicturesAPI = {
-  picture_one: string | undefined,
-  picture_two: string | undefined,
-  picture_three: string | undefined,
-  picture_four: string | undefined,
-  picture_five: string | undefined
-}
-
 type MyNavbarProps = {
   updateToken: (newToken: string) => void,
   sessionToken: string,
+  logout: () => void,
   listings: ListingAPI [],
   fetchListings: () => void,
   yourListings: ListingAPI [],
@@ -47,8 +42,6 @@ type MyNavbarProps = {
   fetchSpecificListing: (listingId: string) => void,
   specificListing: ListingAPI | undefined,
   deleteListing: (listingId: string) => void,
-  specificPictures: PicturesAPI | undefined,
-  fetchSpecificPictures: (listingId: string) => void,
   fetchYourOrders: () => void,
   yourOrders: OrderAPI [],
   fetchSpecificOrder: (orderId: string) => void,
@@ -56,7 +49,6 @@ type MyNavbarProps = {
   yourOrdersMapper: () => void,
   setSessionToken: Dispatch<SetStateAction<string>>,
   setListings: Dispatch<SetStateAction<ListingAPI[]>>,
-  setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
   setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
   setYourOrders: Dispatch<SetStateAction<OrderAPI[]>>,
   setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
@@ -101,6 +93,11 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
               </NavLink>
             </NavItem>
             <NavItem>
+              <NavLink to='/listing/all/' onClick={this.props.logout}>
+                Login
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink to='/orders/all'>
                 View Your Orders
               </NavLink>
@@ -122,7 +119,6 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             yourListings={this.props.yourListings}
             deleteListing={this.props.deleteListing}
             setSpecificListing={this.props.setSpecificListing}
-            setSpecificPictures={this.props.setSpecificPictures}
           />} />
           <Route path='/user/register' element={<Register
               updateToken={this.props.updateToken}

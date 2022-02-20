@@ -12,15 +12,9 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: PicturesAPI
-  }
-
-  type PicturesAPI = {
-    picture_one: string | undefined,
-    picture_two: string | undefined,
-    picture_three: string | undefined,
-    picture_four: string | undefined,
-    picture_five: string | undefined
+    pictureOne: string,
+    pictureTwo: string | undefined,
+    pictureThree: string | undefined
   }
 
 type OrderCreateProps = {

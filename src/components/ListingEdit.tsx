@@ -12,22 +12,15 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: PicturesAPI
-}
-
-type PicturesAPI = {
-    picture_one: string | undefined,
-    picture_two: string | undefined,
-    picture_three: string | undefined,
-    picture_four: string | undefined,
-    picture_five: string | undefined
+    pictureOne: string,
+    pictureTwo: string | undefined,
+    pictureThree: string | undefined
 }
 
 type ListingEditProps = {
     sessionToken: string,
     listing: ListingAPI,
     setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
-    setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
 type ListingEditState = {
@@ -38,11 +31,9 @@ type ListingEditState = {
     newInBox: boolean | undefined,
     condition: string | undefined,
     price: number | undefined,
-    picture_one: string | undefined,
-    picture_two: string | undefined,
-    picture_three: string | undefined,
-    picture_four: string | undefined,
-    picture_five: string | undefined
+    pictureOne: string,
+    pictureTwo: string | undefined,
+    pictureThree: string | undefined,
 }
 
 export default class ListingEdit extends Component<ListingEditProps, ListingEditState> {
@@ -56,15 +47,13 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
             newInBox: this.props.listing.newInBox,
             condition: this.props.listing.condition,
             price: this.props.listing.price,
-            picture_one: this.props.listing.pictures.picture_one,
-            picture_two: this.props.listing.pictures.picture_two,
-            picture_three: this.props.listing.pictures.picture_three,
-            picture_four: this.props.listing.pictures.picture_four,
-            picture_five: this.props.listing.pictures.picture_five,
+            pictureOne: this.props.listing.pictureOne,
+            pictureTwo: this.props.listing?.pictureTwo,
+            pictureThree: this.props.listing?.pictureThree
         }
     }
 
-    handleListingFormSubmit = (event: React.SyntheticEvent) => {
+    handleFormSubmit = (event: React.SyntheticEvent) => {
         event.preventDefault();
         fetch(`${APIURL}/listing/edit/${this.props.listing.id}`, {
             method: 'PUT',
@@ -76,6 +65,9 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     newInBox: this.state.newInBox,
                     condition: this.state.condition,
                     price: this.state.price,
+                    pictureOne: this.state.pictureOne,
+                    pictureTwo: this.state.pictureTwo,
+                    pictureThree: this.state.pictureThree
                 }
             }),
             headers: new Headers({
@@ -92,38 +84,6 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 }
             })
     };
-
-    handlePicturesFormSubmit = (event: React.SyntheticEvent) => {
-        event.preventDefault();
-        fetch(`${APIURL}/pictures/edit/${this.state.id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                pictures: {
-                    picture_one: this.state.picture_one,
-                    picture_two: this.state.picture_two,
-                    picture_three: this.state.picture_three,
-                    picture_four: this.state.picture_four,
-                    picture_five: this.state.picture_five
-                }
-            }),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.props.sessionToken}`
-            })
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    <p>Pictures Updated Successfully</p>
-                } else {
-                    <p>But Pictures Failed to Update</p>
-                }
-            })
-    }
-
-    handleFormSubmit = (event: React.SyntheticEvent) => {
-        this.handleListingFormSubmit(event);
-        this.handlePicturesFormSubmit(event);
-    }
 
     render() {
         return (
@@ -209,63 +169,39 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='picture_one'>
+                    <Label for='pictureOne'>
                         Picture One
                     </Label>
                     <Input
-                        id='picture_one'
-                        name='picture_one'
+                        id='pictureOne'
+                        name='pictureOne'
                         type='text'
-                        value={this.state.picture_one}
-                        onChange={(e) => this.setState({ picture_one: (e.target.value) })}
+                        value={this.state.pictureOne}
+                        onChange={(e) => this.setState({ pictureOne: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='picture_two'>
+                    <Label for='pictureTwo'>
                         Picture Two
                     </Label>
                     <Input
-                        id='picture_two'
-                        name='picture_two'
+                        id='pictureTwo'
+                        name='pictureTwo'
                         type='text'
-                        value={this.state.picture_two}
-                        onChange={(e) => this.setState({ picture_two: (e.target.value) })}
+                        value={this.state.pictureTwo}
+                        onChange={(e) => this.setState({ pictureTwo: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='picture_three'>
+                    <Label for='pictureThree'>
                         Picture Three
                     </Label>
                     <Input
-                        id='picture_three'
-                        name='picture_three'
+                        id='pictureThree'
+                        name='pictureThree'
                         type='text'
-                        value={this.state.picture_three}
-                        onChange={(e) => this.setState({ picture_three: (e.target.value) })}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for='picture_four'>
-                        Picture Four
-                    </Label>
-                    <Input
-                        id='picture_four'
-                        name='picture_four'
-                        type='text'
-                        value={this.state.picture_three}
-                        onChange={(e) => this.setState({ picture_four: (e.target.value) })}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Label for='picture_five'>
-                        Picture Five
-                    </Label>
-                    <Input
-                        id='picture_five'
-                        name='picture_five'
-                        type='text'
-                        value={this.state.picture_three}
-                        onChange={(e) => this.setState({ picture_five: (e.target.value) })}
+                        value={this.state.pictureThree}
+                        onChange={(e) => this.setState({ pictureThree: (e.target.value) })}
                     />
                 </FormGroup>
                 <Button type='submit'>

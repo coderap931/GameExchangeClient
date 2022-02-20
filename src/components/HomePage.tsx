@@ -12,15 +12,9 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: PicturesAPI
-}
-
-type PicturesAPI = {
-  picture_one: string | undefined,
-  picture_two: string | undefined,
-  picture_three: string | undefined,
-  picture_four: string | undefined,
-  picture_five: string | undefined
+  pictureOne: string,
+  pictureTwo: string | undefined,
+  pictureThree: string | undefined
 }
 
 type HomePageProps = {
@@ -58,8 +52,8 @@ export default class Home extends Component<HomePageProps, {}> {
               Item New In Box: {this.newInBox(listing)}
             </CardSubtitle>
             <CardBody>
-                {/* <img src={this.props.listings[index]?.pictures.picture_one} />
-                <br /> */}
+                <img src={this.props.listings[index].pictureOne} />
+                <br />
                 <p>Description:</p> {listing.description}
                 <br />
                 <p>Price: $</p> {listing.price}

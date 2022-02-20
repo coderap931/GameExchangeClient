@@ -12,15 +12,9 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: PicturesAPI
-}
-
-type PicturesAPI = {
-    picture_one: string | undefined,
-    picture_two: string | undefined,
-    picture_three: string | undefined,
-    picture_four: string | undefined,
-    picture_five: string | undefined
+    pictureOne: string,
+    pictureTwo: string | undefined,
+    pictureThree: string | undefined
 }
 
 type ListingsYoursProps = {
@@ -29,10 +23,7 @@ type ListingsYoursProps = {
     fetchYourListings: () => void,
     setYourListings: Dispatch<SetStateAction<ListingAPI []>>,
     deleteListing: (listingId: string) => void,
-    // specificListing: ListingAPI | undefined,
-    // fetchSpecificListing: (listingId: string) => void | undefined,
     setSpecificListing:  Dispatch<SetStateAction<ListingAPI | undefined>>,
-    setSpecificPictures: Dispatch<SetStateAction<PicturesAPI | undefined>>,
 }
 
 export default class ListingsYours extends Component<ListingsYoursProps, {}> {
@@ -52,7 +43,7 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             Item New In Box: {listing.newInBox}
                         </CardSubtitle>
                         <CardBody>
-                            <img src={listing.pictures?.picture_one} />
+                            <img src={listing.pictureOne} />
                             <br />
                             <p>Description:</p> {listing.description}
                             <br />
@@ -68,7 +59,6 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             sessionToken={this.props.sessionToken}
                             listing={listing}
                             setSpecificListing={this.props.setSpecificListing}
-                            setSpecificPictures={this.props.setSpecificPictures}
                         />}/>
                     </Routes>
                 </div>

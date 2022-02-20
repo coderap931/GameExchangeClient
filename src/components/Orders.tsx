@@ -11,14 +11,6 @@ type OrderAPI = {
   listing: ListingAPI
 }
 
-type PicturesAPI = {
-  picture_one: string | undefined,
-  picture_two: string | undefined,
-  picture_three: string | undefined,
-  picture_four: string | undefined,
-  picture_five: string | undefined
-}
-
 type ListingAPI = {
   id: string,
   sold: boolean,
@@ -28,7 +20,9 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: PicturesAPI
+  pictureOne: string,
+  pictureTwo: string | undefined,
+  pictureThree: string | undefined
 }
 
 type OrdersProps = {
@@ -55,7 +49,7 @@ export default class Orders extends Component<OrdersProps, {}> {
               Date/Time Ordered: {order.date_time}
             </CardSubtitle>
             <CardBody>
-              <img src={order.listing.pictures?.picture_one} />
+              <img src={order.listing.pictureOne} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />

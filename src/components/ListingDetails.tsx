@@ -12,15 +12,9 @@ type ListingAPI = {
     newInBox: boolean,
     condition: string,
     price: number,
-    pictures: PicturesAPI
-  }
-  
-  type PicturesAPI = {
-    picture_one: string | undefined,
-    picture_two: string | undefined,
-    picture_three: string | undefined,
-    picture_four: string | undefined,
-    picture_five: string | undefined
+    pictureOne: string,
+    pictureTwo: string | undefined,
+    pictureThree: string | undefined
   }
 
   type ListingDetailsProps = {
@@ -60,27 +54,17 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                         <Col>
                             <img
                                 alt='Item Picture 1'
-                                src={listing.pictures?.picture_one}
+                                src={listing.pictureOne}
                             />
                     
                             <img
                                 alt='Item Picture 2'
-                                src={listing.pictures?.picture_two}
+                                src={listing?.pictureTwo}
                             />
                         
                             <img
                                 alt='Item Picture 3'
-                                src={listing.pictures?.picture_three}
-                            />
-                        
-                            <img
-                                alt='Item Picture 4'
-                                src={listing.pictures?.picture_four}
-                            />
-                        
-                            <img
-                                alt='Item Picture 5'
-                                src={listing.pictures?.picture_five}
+                                src={listing?.pictureThree}
                             />
                         </Col>
                     </Row>

@@ -14,7 +14,9 @@ type ListingAPI = {
   newInBox: boolean,
   condition: string,
   price: number,
-  pictures: PicturesAPI
+  pictureOne: string,
+  pictureTwo: string | undefined,
+  pictureThree: string | undefined
 }
 
 type OrderAPI = {
@@ -25,18 +27,9 @@ type OrderAPI = {
   listing: ListingAPI
 }
 
-type PicturesAPI = {
-  picture_one: string | undefined,
-  picture_two: string | undefined,
-  picture_three: string | undefined,
-  picture_four: string | undefined,
-  picture_five: string | undefined
-}
-
 const App: React.FunctionComponent = () => {
   const [sessionToken, setSessionToken] = useState<string>('');
   const [listings, setListings] = useState<ListingAPI []>([]);
-  const [specificPictures, setSpecificPictures] = useState<PicturesAPI | undefined>();
   const [yourListings, setYourListings] = useState<ListingAPI []>([]);
   const [yourOrders, setYourOrders] = useState<OrderAPI []>([]);
   const [specificListing, setSpecificListing] = useState<ListingAPI | undefined>();
@@ -47,6 +40,13 @@ const App: React.FunctionComponent = () => {
     localStorage.setItem("token", newToken);
     setSessionToken(newToken);
   };
+
+  //!Logout function
+  const logout = () => {
+    localStorage.clear();
+    setSessionToken('');
+    alert('You have been logged outerHeight, returning to homepage');
+  }
 
   //!Fetch Listings
   const fetchListings = (): void => {
@@ -96,7 +96,7 @@ const App: React.FunctionComponent = () => {
               Item New In Box: {listing.newInBox}
             </CardSubtitle>
             <CardBody>
-              <img src={specificPictures?.picture_one} />
+              <img src={listing.pictureOne} />
               <br />
               <p>Description:</p> {listing.description}
               <br />
@@ -137,20 +137,6 @@ const App: React.FunctionComponent = () => {
       .then(() => fetchYourListings())
   };
 
-   //!Fetch Specific Pictures
-   const fetchSpecificPictures = (listingId: string): void=> {
-    fetch(`${APIURL}/pictures/lookup/${listingId}`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-      })
-    })
-      .then((res) => res.json())
-      .then((specificPicturesData) => {
-        setSpecificPictures(specificPicturesData);
-      })
-  };
-
   //!Fetch Your Orders
   const fetchYourOrders = (): void => {
     if (sessionToken !== '') {
@@ -184,7 +170,7 @@ const App: React.FunctionComponent = () => {
               Date/Time Ordered: {order.date_time}
             </CardSubtitle>
             <CardBody>
-              <img src={order.listing.pictures.picture_one} />
+              <img src={order.listing.pictureOne} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />
@@ -229,6 +215,7 @@ const App: React.FunctionComponent = () => {
           <MyNavbar
             updateToken={updateToken}
             sessionToken={sessionToken}
+            logout={logout}
             listings={listings}
             fetchListings={fetchListings}
             yourListings={yourListings}
@@ -237,14 +224,11 @@ const App: React.FunctionComponent = () => {
             fetchSpecificListing={fetchSpecificListing}
             specificListing={specificListing}
             deleteListing={deleteListing}
-            fetchSpecificPictures={fetchSpecificPictures}
             fetchYourOrders={fetchYourOrders}
             yourOrders={yourOrders}
             fetchSpecificOrder={fetchSpecificOrder}
             specificOrder={specificOrder}
             yourOrdersMapper={yourOrdersMapper}
-            specificPictures={specificPictures}
-            setSpecificPictures={setSpecificPictures}
             setSessionToken={setSessionToken}
             setListings={setListings}
             setYourListings={setYourListings}
