@@ -168,7 +168,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to='/registeradmin/'>
+                            <NavLink to='/user/registeradmin/'>
                                 Register New Admin
                             </NavLink>
                         </NavItem>
@@ -208,6 +208,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                         />} />
                         <Route path='/user/registeradmin/*' element={<RegisterAdmin
                             sessionToken={this.props.sessionToken}
+                            role={this.props.role}
                         />} />
                     </Routes>
                 </div>

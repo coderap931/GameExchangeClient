@@ -3,7 +3,7 @@ import {Navigate} from 'react-router-dom';
 import APIURL from "../helpers/environment";
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 
-type RegisterState = {
+type RegisterAdminState = {
     first_name: string,
     last_name: string,
     username: string,
@@ -12,12 +12,13 @@ type RegisterState = {
     role: string,
 }
 
-type RegisterProps = {
+type RegisterAdminProps = {
+    role: string | undefined,
     sessionToken: string,
 }
 
-export default class RegisterAdmin extends Component<RegisterProps, RegisterState> {
-    constructor(props: RegisterProps) {
+export default class RegisterAdmin extends Component<RegisterAdminProps, RegisterAdminState> {
+    constructor(props: RegisterAdminProps) {
         super(props);
         this.state = {
             first_name: '',
