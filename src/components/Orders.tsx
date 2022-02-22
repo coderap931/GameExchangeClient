@@ -2,6 +2,7 @@ import { Component, Dispatch, SetStateAction } from 'react';
 import { Card, CardTitle, CardBody, CardSubtitle} from 'reactstrap';
 import {Routes, Route, NavLink} from 'react-router-dom';
 import ListingDetails from './ListingDetails';
+import OrderEdit from './OrderEdit';
 
 type OrderAPI = {
   id: string,
@@ -30,6 +31,7 @@ type OrdersProps = {
   yourOrders: OrderAPI [],
   fetchYourOrders: () => void,
   setYourOrders: Dispatch<SetStateAction<OrderAPI[]>>,
+  setSpecificOrder: Dispatch<SetStateAction<OrderAPI | undefined>>
 }
 
 export default class Orders extends Component<OrdersProps, {}> {
@@ -61,12 +63,19 @@ export default class Orders extends Component<OrdersProps, {}> {
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
               <NavLink to={`listinginfo/${order.listing.id}`}>View Listing Details</NavLink>
+              <br />
+              <NavLink to={`edit/${order.listing.id}`}>Edit Order Details</NavLink>
             </CardBody>
           </Card>
           <Routes>
             <Route path={`listinginfo/:id/*`} element={<ListingDetails
               sessionToken={this.props.sessionToken}
               listing={order.listing}
+            />} />
+            <Route path={`edit/:id/*`} element={<OrderEdit
+              sessionToken={this.props.sessionToken}
+              order={order}
+              setSpecificOrder={this.props.setSpecificOrder}
             />} />
           </Routes>
         </div>

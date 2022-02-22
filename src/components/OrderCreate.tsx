@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Navigate } from 'react-router-dom';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 import APIURL from "../helpers/environment";
 
@@ -55,6 +56,10 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
             .then((response) => {
                 responseStatus = response.status;
                 return response.json();
+            })
+            .then(() => {
+                alert('Order placed successfully, returning to homepage');
+                <Navigate to='/all' />
             })
     }
 

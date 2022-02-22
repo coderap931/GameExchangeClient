@@ -1,4 +1,5 @@
 import React, { Component, Dispatch, SetStateAction } from 'react';
+import {Navigate} from 'react-router-dom';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 import APIURL from '../helpers/environment';
 
@@ -53,7 +54,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
         }
     }
 
-    handleFormSubmit = (event: React.SyntheticEvent) => {
+    handleFormSubmit = (event: React.SyntheticEvent): void => {
         event.preventDefault();
         fetch(`${APIURL}/listing/edit/${this.props.listing.id}`, {
             method: 'PUT',
@@ -77,10 +78,8 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
         })
             .then((response) => {
                 if (response.status === 200) {
-                    <div>
-                        <p>Listing Updated Successfully</p>
-                        <Button href='/listings/yours'>Return to Your Listings</Button>
-                    </div>
+                    alert('Listing Editted successfully, returning to homepage');
+                    <Navigate to='/all' />
                 }
             })
     };

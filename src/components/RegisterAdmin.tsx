@@ -13,14 +13,10 @@ type RegisterState = {
 }
 
 type RegisterProps = {
-    updateToken: (newToken: string) => void,
     sessionToken: string,
-    setSessionToken: Dispatch<SetStateAction<string>>,
-    role: string | undefined,
-    setRole: Dispatch<SetStateAction<string | undefined>>
 }
 
-export default class Register extends Component<RegisterProps, RegisterState> {
+export default class RegisterAdmin extends Component<RegisterProps, RegisterState> {
     constructor(props: RegisterProps) {
         super(props);
         this.state = {
@@ -36,7 +32,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
     handleFormSubmit = (event: React.SyntheticEvent) => {
         let responseStatus: number;
         event.preventDefault();
-        fetch(`${APIURL}/user/register`, {
+        fetch(`${APIURL}/user/registeradmin`, {
             method: 'POST',
             body: JSON.stringify({
                 user: {
@@ -45,22 +41,21 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                     username: this.state.username,
                     email: this.state.email,
                     password: this.state.password,
-                    role: 'Client'
+                    role: 'Admin'
                 }
             }),
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.props.sessionToken}`
             })
         })
             .then((response) => {
                 responseStatus = response.status;
                 return response.json();
             })
-            .then((json) => {
-                this.props.updateToken(json.sessionToken);
-                this.props.setRole(this.state.role);
+            .then(() => {
                 if (responseStatus === 200) {
-                    alert('Registed Successfully, you have been logged in automatically, returning to homepage');
+                    alert('Admin Registed Successfully, returning to homepage');
                     <Navigate to='/all' />
                 }
             })
@@ -69,6 +64,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
     render() {
         return (
             <Form onSubmit={this.handleFormSubmit}>
+                <p>Please let the new admin take control and create their account</p>
                 <FormGroup>
                     <Label for='first_name'>
                         First Name

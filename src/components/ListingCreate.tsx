@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
+import {Navigate} from 'react-router-dom';
 import APIURL from '../helpers/environment';
 
 type ListingCreateState = {
@@ -63,6 +64,10 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                 responseStatus = response.status;
                 return response.json();
             })
+            .then(() => {
+                alert('Listing Created successfully, returning to homepage');
+                <Navigate to='/all' />                
+            })
     };
 
     render() {
@@ -78,7 +83,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         placeholder='Game XYZ'
                         type='text'
                         value={this.state.item_name}
-                        onChange={(e) => this.setState({item_name: (e.target.value)})}
+                        onChange={(e) => this.setState({ item_name: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -91,7 +96,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         placeholder='Game XYZ, an open-world RPG with several Game of The Year Awards'
                         type='text'
                         value={this.state.description}
-                        onChange={(e) => this.setState({description: (e.target.value)})}
+                        onChange={(e) => this.setState({ description: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -104,16 +109,16 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         placeholder='Nintendo Switch'
                         type='text'
                         value={this.state.platform}
-                        onChange={(e) => this.setState({platform: (e.target.value)})}
+                        onChange={(e) => this.setState({ platform: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup tag='fieldset'>
                     <legend>New In Box</legend>
                     <FormGroup>
                         <Label check>
-                            <Input type='radio' name='true'/> {' '}
+                            <Input type='radio' name='true' /> {' '}
                             True
-                            <Input type='radio' name='false'/> {' '}
+                            <Input type='radio' name='false' /> {' '}
                             False
                         </Label>
                     </FormGroup>
@@ -128,7 +133,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         placeholder='Game Disc only, minor scratches, tested and working'
                         type='text'
                         value={this.state.condition}
-                        onChange={(e) => this.setState({condition: (e.target.value)})}
+                        onChange={(e) => this.setState({ condition: (e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -141,7 +146,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
                         placeholder='0.00'
                         type='number'
                         value={this.state.price}
-                        onChange={(e) => this.setState({price: (+e.target.value)})}
+                        onChange={(e) => this.setState({ price: (+e.target.value) })}
                     />
                 </FormGroup>
                 <FormGroup>

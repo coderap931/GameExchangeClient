@@ -1,4 +1,5 @@
 import React, {Component, Dispatch, SetStateAction} from 'react';
+import {Navigate} from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import APIURL from '../helpers/environment';
 
@@ -12,6 +13,9 @@ type LoginProps = {
     updateToken: (newToken: string) => void,
     sessionToken: string,
     setSessionToken: Dispatch<SetStateAction<string>>,
+    fetchRole: () => void;
+    role: string | undefined,
+    setRole: Dispatch<SetStateAction<string | undefined>>
 }
 export default class Login extends Component<LoginProps, LoginState> {
     constructor(props: LoginProps) {
@@ -25,7 +29,7 @@ export default class Login extends Component<LoginProps, LoginState> {
 
     errorLoginMessage() {
         if (this.state.responseStatus === 500) {
-            return <p>We encountered an issue while attempting to log you in, please try again</p>
+            return <p>An issue occurred while attempting to log you in, please try again</p>
         }
     }
 
@@ -56,12 +60,11 @@ export default class Login extends Component<LoginProps, LoginState> {
                 return response.json();
             })
             .then((json) => {
-                this.props.updateToken(json.sessionToken)
+                this.props.updateToken(json.sessionToken);
+                this.props.fetchRole();
                 if (this.state.responseStatus === 200) {
-                    <div>
-                        <p>Login Successful</p>
-                        <Button href='/all'>Return home</Button>
-                    </div>
+                    alert('Logged In successfully, returning to homepage');
+                    <Navigate to='/all' />
                 }
             })
     };
