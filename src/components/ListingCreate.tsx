@@ -66,7 +66,7 @@ export default class ListingCreate extends Component<ListingCreateProps, Listing
             })
             .then(() => {
                 alert('Listing Created successfully, returning to homepage');
-                <Navigate to='/all' />                
+                <Navigate to='listing/all/*' />                
             })
     };
 

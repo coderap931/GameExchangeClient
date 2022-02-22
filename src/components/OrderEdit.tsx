@@ -1,10 +1,12 @@
 import React, { Component, Dispatch, SetStateAction } from 'react';
+import {Navigate} from 'react-router-dom';
 import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
 import APIURL from '../helpers/environment';
 
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -18,16 +20,15 @@ type ListingAPI = {
 
 type OrderAPI = {
     id: string,
+    listingId: string,
     total_price: number,
     date_time: Date,
     shipping_address: string,
-    listing: ListingAPI
 }
   
 type OrderEditProps = {
     sessionToken: string,
     order: OrderAPI,
-    setSpecificOrder: Dispatch<SetStateAction<OrderAPI | undefined>>
 }
 
 type OrderEditState = {
@@ -57,13 +58,9 @@ export default class OrderEdit extends Component<OrderEditProps, OrderEditState>
             })
         })
             .then((response) => {
-                if (response.status === 200) {
-                    return (
-                        <div>
-                            <p>Order Updated Successfully</p>
-                            <Button to='orders/all'>Return to Your Orders</Button>
-                        </div>
-                    )
+                if (response.status === 200){
+                    alert('Order Editted successfully, returning to homepage');
+                    <Navigate to='listing/all/*' />
                 }
             })
     };

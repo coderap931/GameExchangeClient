@@ -7,6 +7,7 @@ import APIURL from "../helpers/environment";
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -16,11 +17,12 @@ type ListingAPI = {
     pictureOne: string,
     pictureTwo: string | undefined,
     pictureThree: string | undefined
-  }
+}
 
 type OrderCreateProps = {
     listing: ListingAPI,
-    sessionToken: string
+    sessionToken: string,
+    editSpecificListing: (listingId: string, orderId: string) => void,
 }
 
 type OrderCreateState = {
@@ -57,9 +59,12 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
                 responseStatus = response.status;
                 return response.json();
             })
+            .then((json) => {
+                this.props.editSpecificListing(this.props.listing.id, json.id);
+            })
             .then(() => {
                 alert('Order placed successfully, returning to homepage');
-                <Navigate to='/all' />
+                <Navigate to='listing/all/*' />
             })
     }
 

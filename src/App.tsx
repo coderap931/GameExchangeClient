@@ -8,6 +8,7 @@ import MyNavbar from './components/MyNavbar';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -21,10 +22,10 @@ type ListingAPI = {
 
 type OrderAPI = {
     id: string,
+    listingId: string,
     total_price: number,
     date_time: Date,
     shipping_address: string,
-    listing: ListingAPI
 }
 
 const App: React.FunctionComponent = () => {
@@ -46,14 +47,15 @@ const App: React.FunctionComponent = () => {
     const logout = () => {
         localStorage.clear();
         setSessionToken('');
+        setRole('');
         alert('You have been logged outerHeight, returning to homepage');
-        <Navigate to='/all' />
+        <Navigate to='listing/all/*' />
 
     }
 
     //!Fetch Role
-    const fetchRole = (): void => {
-        fetch(`${APIURL}/userrole`, {
+    const fetchRole = (username: string): void => {
+        fetch(`${APIURL}/user/userrole/${username}`, {
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ const App: React.FunctionComponent = () => {
                 })
         } else {
             alert('You dont have any listings, returning to homepage');
-            <Navigate to='/all' />
+            <Navigate to='listing/all/*' />
 
         }
     };
@@ -143,6 +145,30 @@ const App: React.FunctionComponent = () => {
             })
     };
 
+    //!Edit Listing and update OrderId and sold bool
+    const editSpecificListing = (listingId: string | undefined, orderId: string): void => {
+        fetch(`${APIURL}/listing/edit/${listingId}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                listing: {
+                    sold: true,
+                    orderId: orderId
+                }
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionToken}`
+            })
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    //Do nothing, continue on
+                } else {
+                    console.log('Unable to update listings values SOLD and ORDERID');
+                }
+            })
+    };
+
     //!Delete A Listing
     const deleteListing = (listingId: string): void => {
         fetch(`${APIURL}/listing/delete/${listingId}`, {
@@ -154,6 +180,10 @@ const App: React.FunctionComponent = () => {
         })
             .then(() => fetchListings())
             .then(() => fetchYourListings())
+            .then(() => {
+                alert('Listing Deleted');
+                <Navigate to='/*' />
+            })
     };
 
     //!Fetch Your Orders
@@ -172,39 +202,8 @@ const App: React.FunctionComponent = () => {
                 })
         } else {
             alert('You dont have any orders, returning to homepage');
-            <Navigate to='/all' />
+            <Navigate to='listing/all/*' />
         }
-    };
-
-    //!Map Your Orders
-    const yourOrdersMapper = (): JSX.Element[] => {
-        return yourOrders?.map((order: OrderAPI, index: number) => {
-            return (
-                <div id='orderGrid'>
-                    <Card key={index}>
-                        <CardTitle>
-                            {order.listing.item_name}
-                        </CardTitle>
-                        <CardSubtitle>
-                            Date/Time Ordered: {order.date_time}
-                        </CardSubtitle>
-                        <CardBody>
-                            <img src={order.listing.pictureOne} />
-                            <br />
-                            <p>Order ID:</p> {order.id}
-                            <br />
-                            <p>Total Price: $</p> {order.total_price}
-                            <br />
-                            <p>Description:</p> {order.listing.description}
-                            <br />
-                            <p>Shipping Address:</p> {order.shipping_address}
-                            <br />
-                            <Button to={`${APIURL}/listing/${order.listing.id}`}>View Listing Details</Button>
-                        </CardBody>
-                    </Card>
-                </div>
-            )
-        })
     };
 
     //!Fetch Specific Order
@@ -223,8 +222,24 @@ const App: React.FunctionComponent = () => {
                 })
         } else {
             alert('This order cannot be found, it may not exist or you may not be authorized to view it, returning to homepage');
-            <Navigate to='/all' />
+            <Navigate to='listing/all/*' />
         }
+    };
+
+    //!Delete An Order
+    const deleteOrder = (orderId: string): void => {
+        fetch(`${APIURL}/order/delete/${orderId}`, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${sessionToken}`
+            })
+        })
+            .then(() => fetchYourOrders())
+            .then(() => {
+                alert('Order Cancelled, returning to homepage');
+                <Navigate to='listing/all/*' />
+            })
     };
 
     return (
@@ -250,13 +265,14 @@ const App: React.FunctionComponent = () => {
                         yourOrders={yourOrders}
                         fetchSpecificOrder={fetchSpecificOrder}
                         specificOrder={specificOrder}
-                        yourOrdersMapper={yourOrdersMapper}
                         setSessionToken={setSessionToken}
                         setListings={setListings}
                         setYourListings={setYourListings}
                         setYourOrders={setYourOrders}
                         setSpecificListing={setSpecificListing}
+                        editSpecificListing={editSpecificListing}
                         setSpecificOrder={setSpecificOrder}
+                        deleteOrder={deleteOrder}
                     />
                 </Router>
             </div>

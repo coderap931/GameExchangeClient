@@ -13,7 +13,7 @@ type LoginProps = {
     updateToken: (newToken: string) => void,
     sessionToken: string,
     setSessionToken: Dispatch<SetStateAction<string>>,
-    fetchRole: () => void;
+    fetchRole: (username: string) => void;
     role: string | undefined,
     setRole: Dispatch<SetStateAction<string | undefined>>
 }
@@ -61,10 +61,10 @@ export default class Login extends Component<LoginProps, LoginState> {
             })
             .then((json) => {
                 this.props.updateToken(json.sessionToken);
-                this.props.fetchRole();
+                this.props.fetchRole(json.username);
                 if (this.state.responseStatus === 200) {
                     alert('Logged In successfully, returning to homepage');
-                    <Navigate to='/all' />
+                    <Navigate to='listing/all/*' />
                 }
             })
     };

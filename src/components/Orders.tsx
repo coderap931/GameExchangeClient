@@ -6,15 +6,16 @@ import OrderEdit from './OrderEdit';
 
 type OrderAPI = {
   id: string,
+  listingId: string,
   total_price: number,
   date_time: Date,
   shipping_address: string,
-  listing: ListingAPI
 }
 
 type ListingAPI = {
   id: string,
   sold: boolean,
+  orderId: string | null,
   item_name: string,
   description: string,
   platform: string,
@@ -30,6 +31,11 @@ type OrdersProps = {
   sessionToken: string,
   yourOrders: OrderAPI [],
   fetchYourOrders: () => void,
+  deleteOrder: (orderId: string) => void,
+  fetchSpecificListing: (listingId: string) => void,
+  specificListing: ListingAPI | undefined,
+  setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
+  editSpecificListing: (listingId: string, orderId: string) => void,
   setYourOrders: Dispatch<SetStateAction<OrderAPI[]>>,
   setSpecificOrder: Dispatch<SetStateAction<OrderAPI | undefined>>
 }
@@ -41,41 +47,36 @@ export default class Orders extends Component<OrdersProps, {}> {
 
   yourOrdersMapper = (): JSX.Element[] => {
     return this.props.yourOrders?.map((order: OrderAPI) => {
-      console.log(order);
+      this.props.fetchSpecificListing(order.listingId)
       return (
         <div id='orderGrid' key={order.id}>
           <Card>
             <CardTitle>
-              {order.listing.item_name}
+            Date/Time Ordered: {order.date_time}
             </CardTitle>
             <CardSubtitle>
-              Date/Time Ordered: {order.date_time}
+              {this.props.specificListing?.item_name}
             </CardSubtitle>
             <CardBody>
-              <img src={order.listing.pictureOne} />
+              <img src={this.props.specificListing?.pictureOne} />
               <br />
               <p>Order ID:</p> {order.id}
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {order.listing.description}
+              <p>Description:</p> {this.props.specificListing?.description}
               <br />
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
-              <NavLink to={`listinginfo/${order.listing.id}`}>View Listing Details</NavLink>
-              <br />
-              <NavLink to={`edit/${order.listing.id}`}>Edit Order Details</NavLink>
+              {/* <NavLink to={`order/edit/${order.id}`}>Edit Order Details</NavLink>
+              <br /> */}
+              <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteOrder(order.id) }}>Delete Listing</NavLink>
             </CardBody>
           </Card>
           <Routes>
-            <Route path={`listinginfo/:id/*`} element={<ListingDetails
-              sessionToken={this.props.sessionToken}
-              listing={order.listing}
-            />} />
-            <Route path={`edit/:id/*`} element={<OrderEdit
+            <Route path={`order/edit/:id/*`} element={<OrderEdit
               sessionToken={this.props.sessionToken}
               order={order}
-              setSpecificOrder={this.props.setSpecificOrder}
             />} />
           </Routes>
         </div>

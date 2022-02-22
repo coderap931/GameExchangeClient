@@ -61,7 +61,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                 this.props.setRole(this.state.role);
                 if (responseStatus === 200) {
                     alert('Registed Successfully, you have been logged in automatically, returning to homepage');
-                    <Navigate to='/all' />
+                    <Navigate to='listing/all/*' />
                 }
             })
     };

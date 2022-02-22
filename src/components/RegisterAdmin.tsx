@@ -56,7 +56,7 @@ export default class RegisterAdmin extends Component<RegisterProps, RegisterStat
             .then(() => {
                 if (responseStatus === 200) {
                     alert('Admin Registed Successfully, returning to homepage');
-                    <Navigate to='/all' />
+                    <Navigate to='listing/all/*' />
                 }
             })
     };

@@ -7,6 +7,7 @@ import ListingEdit from './ListingEdit';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -18,13 +19,24 @@ type ListingAPI = {
     pictureThree: string | undefined
 }
 
+type OrderAPI = {
+    id: string,
+    listingId: string,
+    total_price: number,
+    date_time: Date,
+    shipping_address: string,
+}
+
 type ListingsYoursProps = {
     sessionToken: string,
     yourListings: ListingAPI[],
     fetchYourListings: () => void,
     setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
     deleteListing: (listingId: string) => void,
+    fetchSpecificListing: (listingId: string) => void,
+    specificListing: ListingAPI | undefined,
     setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
+    editSpecificListing: (listingId: string, orderId: string) => void,
 }
 
 export default class ListingsYours extends Component<ListingsYoursProps, {}> {
@@ -52,18 +64,22 @@ export default class ListingsYours extends Component<ListingsYoursProps, {}> {
                             <br />
                             <NavLink to={`listinginfo/${listing.id}/*`}>View Listing Details</NavLink>
                             <NavLink to={`listing/edit/${listing.id}/*`}>Edit Listing Details</NavLink>
-                            <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteListing(listing.id) }}>Delete Listing</NavLink>
+                            <NavLink to={'/*'} onClick={() => { this.props.deleteListing(listing.id) }}>Delete Listing</NavLink>
                         </CardBody>
                     </Card>
                     <Routes>
                         <Route path={`listinginfo/:id/*`} element={<ListingDetails
+                            editSpecificListing={this.props.editSpecificListing}
                             sessionToken={this.props.sessionToken}
                             listing={listing}
                         />} />
                         <Route path={`listing/edit/${listing.id}/*`} element={<ListingEdit
                             sessionToken={this.props.sessionToken}
-                            listing={listing}
+                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            editSpecificListing={this.props.editSpecificListing}
+                            specificListing={this.props.specificListing}
                             setSpecificListing={this.props.setSpecificListing}
+                            listing={listing}
                         />} />
                     </Routes>
                 </div>

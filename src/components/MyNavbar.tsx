@@ -12,6 +12,7 @@ import Orders from './Orders';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -25,17 +26,17 @@ type ListingAPI = {
 
 type OrderAPI = {
     id: string,
+    listingId: string,
     total_price: number,
     date_time: Date,
     shipping_address: string,
-    listing: ListingAPI
 }
 
 type MyNavbarProps = {
     updateToken: (newToken: string) => void,
     sessionToken: string,
     role: string | undefined,
-    fetchRole: () => void,
+    fetchRole: (username: string) => void,
     setRole: Dispatch<SetStateAction<string | undefined>>,
     logout: () => void,
     listings: ListingAPI[],
@@ -50,7 +51,8 @@ type MyNavbarProps = {
     yourOrders: OrderAPI[],
     fetchSpecificOrder: (orderId: string) => void,
     specificOrder: OrderAPI | undefined,
-    yourOrdersMapper: () => void,
+    deleteOrder: (orderId: string) => void,
+    editSpecificListing: (listingId: string, orderId: string) => void,
     setSessionToken: Dispatch<SetStateAction<string>>,
     setListings: Dispatch<SetStateAction<ListingAPI[]>>,
     setYourListings: Dispatch<SetStateAction<ListingAPI[]>>,
@@ -102,6 +104,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                             sessionToken={this.props.sessionToken}
                             fetchListings={this.props.fetchListings}
                             listings={this.props.listings}
+                            editSpecificListing={this.props.editSpecificListing}
                         />} />
                         <Route path='/listing/create/*' element={<ListingCreate
                             sessionToken={this.props.sessionToken}
@@ -111,13 +114,21 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                             fetchYourListings={this.props.fetchYourListings}
                             setYourListings={this.props.setYourListings}
                             yourListings={this.props.yourListings}
+                            editSpecificListing={this.props.editSpecificListing}
                             deleteListing={this.props.deleteListing}
+                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            specificListing={this.props.specificListing}
                             setSpecificListing={this.props.setSpecificListing}
                         />} />
                         <Route path='/orders/all/*' element={<Orders
                             sessionToken={this.props.sessionToken}
                             fetchYourOrders={this.props.fetchYourOrders}
                             yourOrders={this.props.yourOrders}
+                            deleteOrder={this.props.deleteOrder}
+                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            specificListing={this.props.specificListing}
+                            setSpecificListing={this.props.setSpecificListing}
+                            editSpecificListing={this.props.editSpecificListing}
                             setYourOrders={this.props.setYourOrders}
                             setSpecificOrder={this.props.setSpecificOrder}
                         />} />
@@ -165,6 +176,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                     <Routes>
                         <Route path='/listing/all/*' element={<Home
                             sessionToken={this.props.sessionToken}
+                            editSpecificListing={this.props.editSpecificListing}
                             fetchListings={this.props.fetchListings}
                             listings={this.props.listings}
                         />} />
@@ -176,6 +188,9 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                             fetchYourListings={this.props.fetchYourListings}
                             setYourListings={this.props.setYourListings}
                             yourListings={this.props.yourListings}
+                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            specificListing={this.props.specificListing}
+                            editSpecificListing={this.props.editSpecificListing}
                             deleteListing={this.props.deleteListing}
                             setSpecificListing={this.props.setSpecificListing}
                         />} />
@@ -183,6 +198,11 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                             sessionToken={this.props.sessionToken}
                             fetchYourOrders={this.props.fetchYourOrders}
                             yourOrders={this.props.yourOrders}
+                            deleteOrder={this.props.deleteOrder}
+                            fetchSpecificListing={this.props.fetchSpecificListing}
+                            specificListing={this.props.specificListing}
+                            setSpecificListing={this.props.setSpecificListing}
+                            editSpecificListing={this.props.editSpecificListing}
                             setYourOrders={this.props.setYourOrders}
                             setSpecificOrder={this.props.setSpecificOrder}
                         />} />
@@ -217,6 +237,7 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
                     </Navbar>
                     <Routes>
                         <Route path='/listing/all/*' element={<Home
+                            editSpecificListing={this.props.editSpecificListing}
                             sessionToken={this.props.sessionToken}
                             fetchListings={this.props.fetchListings}
                             listings={this.props.listings}

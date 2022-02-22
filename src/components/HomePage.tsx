@@ -6,6 +6,7 @@ import ListingDetails from './ListingDetails';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -17,9 +18,18 @@ type ListingAPI = {
     pictureThree: string | undefined
 }
 
+type OrderAPI = {
+    id: string,
+    listingId: string,
+    total_price: number,
+    date_time: Date,
+    shipping_address: string,
+}
+
 type HomePageProps = {
     sessionToken: string,
     listings: ListingAPI[],
+    editSpecificListing: (listingId: string, orderId: string) => void,
     fetchListings: () => void,
 }
 
@@ -64,6 +74,7 @@ export default class Home extends Component<HomePageProps, {}> {
                     </Card>
                     <Routes>
                         <Route path={`listinginfo/:id/*`} element={<ListingDetails
+                            editSpecificListing={this.props.editSpecificListing}
                             sessionToken={this.props.sessionToken}
                             listing={listing}
                         />} />

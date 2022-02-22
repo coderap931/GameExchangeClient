@@ -7,6 +7,7 @@ import APIURL from '../helpers/environment';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -21,11 +22,13 @@ type ListingAPI = {
 type ListingEditProps = {
     sessionToken: string,
     listing: ListingAPI,
+    fetchSpecificListing: (listingId: string) => void,
+    specificListing: ListingAPI | undefined,
     setSpecificListing: Dispatch<SetStateAction<ListingAPI | undefined>>,
+    editSpecificListing: (listingId: string, orderId: string) => void,
 }
 
 type ListingEditState = {
-    id: string | undefined,
     item_name: string | undefined,
     description: string | undefined,
     platform: string | undefined,
@@ -41,7 +44,6 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
     constructor(props: ListingEditProps) {
         super(props);
         this.state = {
-            id: this.props.listing.id,
             item_name: this.props.listing.item_name,
             description: this.props.listing.description,
             platform: this.props.listing.platform,
@@ -79,7 +81,7 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
             .then((response) => {
                 if (response.status === 200) {
                     alert('Listing Editted successfully, returning to homepage');
-                    <Navigate to='/all' />
+                    <Navigate to='listing/all/*' />
                 }
             })
     };

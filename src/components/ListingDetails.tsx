@@ -6,6 +6,7 @@ import OrderCreate from './OrderCreate';
 type ListingAPI = {
     id: string,
     sold: boolean,
+    orderId: string | null,
     item_name: string,
     description: string,
     platform: string,
@@ -19,7 +20,8 @@ type ListingAPI = {
 
 type ListingDetailsProps = {
     listing: ListingAPI,
-    sessionToken: string
+    sessionToken: string,
+    editSpecificListing: (listingId: string, orderId: string) => void
 }
 
 export default class ListingDetails extends Component<ListingDetailsProps, {}> {
@@ -102,6 +104,7 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
                 </Container>
                 <Routes>
                     <Route path={`order/create/:id`} element={<OrderCreate
+                        editSpecificListing={this.props.editSpecificListing}
                         sessionToken={this.props.sessionToken}
                         listing={listing}
                     />} />
