@@ -70,7 +70,7 @@ export default class Orders extends Component<OrdersProps, {}> {
               <br />
               {/* <NavLink to={`order/edit/${order.id}`}>Edit Order Details</NavLink>
               <br /> */}
-              <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteOrder(order.id) }}>Delete Listing</NavLink>
+              <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteOrder(order.id) }}>Delete Order</NavLink>
             </CardBody>
           </Card>
           <Routes>

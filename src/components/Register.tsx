@@ -45,7 +45,8 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                     username: this.state.username,
                     email: this.state.email,
                     password: this.state.password,
-                    role: 'Client'
+                    // role: 'Client'
+                    role: 'Admin'
                 }
             }),
             headers: new Headers({
