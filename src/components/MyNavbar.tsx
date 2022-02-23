@@ -8,6 +8,8 @@ import Login from './Login';
 import ListingCreate from './ListingCreate';
 import ListingsYours from './ListingsYours';
 import Orders from './Orders';
+import '../App.css';
+import Clipart from '../assets/RedLogo.png';
 
 type ListingAPI = {
     id: string,
@@ -68,32 +70,33 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
     render() {
         if (this.props.role === 'Client') {
             return (
-                <div id='navbar'>
-                    <Navbar>
-                        <NavbarBrand>
+                <div>
+                    <img src={Clipart} id='logo'/>
+                    <Navbar id='navbar'>
+                        <NavbarBrand className='brand'>
                             Game Exchange
                         </NavbarBrand>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/all/'>
                                 Home / View All Listings
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/create/'>
                                 Create New Listing
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/yours/'>
                                 View Your Listings
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/all/' onClick={this.props.logout}>
                                 Logout
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/orders/all/'>
                                 View Your Orders
                             </NavLink>
@@ -137,37 +140,38 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             )
         } else if (this.props.role === 'Admin') {
             return (
-                <div id='navbar'>
-                    <Navbar>
-                        <NavbarBrand>
+                <div>
+                    <img src={Clipart} id='logo'/>
+                    <Navbar id='navbar'>
+                        <NavbarBrand className='brand'>
                             Game Exchange
                         </NavbarBrand>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/all/'>
                                 Home / View All Listings
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/create/'>
                                 Create New Listing
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/yours/'>
                                 View Your Listings
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/all/' onClick={this.props.logout}>
                                 Logout
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/orders/all/'>
                                 View Your Orders
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/user/registeradmin/'>
                                 Register New Admin
                             </NavLink>
@@ -215,22 +219,23 @@ export default class MyNavbar extends Component<MyNavbarProps, {}> {
             )
         } else {
             return (
-                <div id='navbar'>
-                    <Navbar>
-                        <NavbarBrand>
+                <div>
+                    <img src={Clipart} id='logo'/>
+                    <Navbar id='navbar'>
+                        <NavbarBrand className='brand'>
                             Game Exchange
                         </NavbarBrand>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/listing/all/'>
                                 Home / View All Listings
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/user/register/'>
                                 Create Account
                             </NavLink>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className='navitem'>
                             <NavLink to='/user/login/'>
                                 Login
                             </NavLink>

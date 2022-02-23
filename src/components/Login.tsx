@@ -71,13 +71,13 @@ export default class Login extends Component<LoginProps, LoginState> {
 
     render() {
         return (
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.handleFormSubmit} className='form'>
                 <FormGroup>
                     <Label for='username'>
-                        Username
+                        Username:
                     </Label>
                     <Input
-                        id='username'
+                        id='textinput'
                         name='username'
                         placeholder='Username'
                         type='text'
@@ -87,18 +87,18 @@ export default class Login extends Component<LoginProps, LoginState> {
                 </FormGroup>
                 <FormGroup>
                     <Label for='password'>
-                        Password
+                        Password:
                     </Label>
                     <Input
                         id='password'
                         name='password'
                         placeholder='Password'
-                        type='text'
+                        type='password'
                         value={this.state.password}
                         onChange={(e) => this.setState({password: (e.target.value)})}
                     />
                 </FormGroup>
-                <Button type='submit'>
+                <Button type='submit' className='submitbutton'>
                     Submit
                 </Button>
                 {this.errorLoginMessage()}

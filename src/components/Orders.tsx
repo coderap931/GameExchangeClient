@@ -47,30 +47,30 @@ export default class Orders extends Component<OrdersProps, {}> {
 
   yourOrdersMapper = (): JSX.Element[] => {
     return this.props.yourOrders?.map((order: OrderAPI) => {
-      this.props.fetchSpecificListing(order.listingId)
+      // this.props.fetchSpecificListing(order.listingId);
       return (
         <div id='orderGrid' key={order.id}>
-          <Card>
-            <CardTitle>
+          <Card className='card'>
+            <CardTitle className='cardtitle'>
             Date/Time Ordered: {order.date_time}
             </CardTitle>
-            <CardSubtitle>
+            {/* <CardSubtitle>
               {this.props.specificListing?.item_name}
-            </CardSubtitle>
-            <CardBody>
-              <img src={this.props.specificListing?.pictureOne} />
-              <br />
+            </CardSubtitle> */}
+            <CardBody className='cardbody'>
+              {/* <img src={this.props.specificListing?.pictureOne} />
+              <br /> */}
               <p>Order ID:</p> {order.id}
               <br />
               <p>Total Price: $</p> {order.total_price}
               <br />
-              <p>Description:</p> {this.props.specificListing?.description}
-              <br />
+              {/* <p>Description:</p> {this.props.specificListing?.description}
+              <br /> */}
               <p>Shipping Address:</p> {order.shipping_address}
               <br />
               {/* <NavLink to={`order/edit/${order.id}`}>Edit Order Details</NavLink>
               <br /> */}
-              <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteOrder(order.id) }}>Delete Order</NavLink>
+              <NavLink to={'listing/all/*'} onClick={() => { this.props.deleteOrder(order.id) }} className='listinglink'>Delete Order</NavLink>
             </CardBody>
           </Card>
           <Routes>
@@ -85,10 +85,6 @@ export default class Orders extends Component<OrdersProps, {}> {
   };
 
   componentDidMount() {
-    this.props.fetchYourOrders();
-  }
-
-  componentDidUpdate() {
     this.props.fetchYourOrders();
   }
 

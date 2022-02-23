@@ -19,14 +19,6 @@ type ListingAPI = {
     pictureThree: string | undefined
 }
 
-type OrderAPI = {
-    id: string,
-    listingId: string,
-    total_price: number,
-    date_time: Date,
-    shipping_address: string,
-}
-
 type ListingsYoursProps = {
     sessionToken: string,
     yourListings: ListingAPI[],

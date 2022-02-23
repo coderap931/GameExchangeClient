@@ -1,38 +1,179 @@
-.App {
-  text-align: center;
+a {
+    color: lightcyan;
+    text-decoration: none;
+    border: 0.15vh solid lightcyan;
+    border-radius: 7.5vh;
+    padding: 5px;
+    font-style: italic;
+    background-color: blue
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    background-color: rgb(24, 23, 23);
+    font-family: 'Franklin Gothic Medium', fantasy;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.brand {
+    background-color: inherit;
+    border: none;
+    color: cyan;
+    font-size: xx-large;
+    font-weight: bold;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navitem {
+    margin-top: 2.5vh;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+    background-color: rgb(87, 82, 82);
+    margin-top: 2vh;
+    flex: auto;
+    width: 15vw;
+    height: 60vh;
+    border: 1vh solid blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    margin: 2vw;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.detailscard {
+    background-color: rgb(87, 82, 82);
+    margin-top: 70vh;
+    position: absolute;
+    width: 15vw;
+    margin-left: -36vh;
+    height: 65vh;
+    border: .25vh dashed blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    overflow-y: scroll;
+}
+
+.ordercard {
+    background-color: rgb(87, 82, 82);
+    width: 15vw;
+    margin-left: -36vh;
+    height: 15vh !important;
+    border: .25vh dashed blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    overflow-y: scroll;
+}
+
+.orderscard {
+    background-color: rgb(87, 82, 82);
+    width: 15vw;
+    margin-left: -36vh;
+    height: 90vh;
+    border: .25vh dashed blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    overflow-y: scroll;
+}
+
+.cardtitle {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    font-weight: bold;
+    font-style: italic;
+    border-bottom: .25vh dashed black;
+}
+
+.cardbody {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.listingpictureone {
+    width: 12.5vw;
+    max-height: 35vh !important;
+    border: 0.5vh solid blue;
+    border-radius: 3vh;
+}
+
+.listingpictureother {
+    width: 12.5vw;
+    max-height: 35vh;
+    border: 0.5vh solid blue;
+    border-radius: 3vh;
+}
+
+.form {
+    font-weight: bold;
+    font-style: italic;
+    background-color: rgb(87, 82, 82);
+    width: 15vw;
+    max-height: 70vh;
+    border: 1vh solid blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    margin: 2vw;
+}
+
+.createform {
+    font-weight: bold;
+    font-style: italic;
+    background-color: rgb(87, 82, 82);
+    width: 20vw;
+    max-height: 70vh;
+    border: 1vh solid blue;
+    text-align: center;
+    border-radius: 3vh;
+    padding-bottom: 2vh;
+    margin: 2vw;
+}
+
+.submitbutton {
+    color: lightcyan;
+    text-decoration: none;
+    border: 0.15vh solid lightcyan;
+    border-radius: 7.5vh;
+    padding: 5px;
+    font-style: italic;
+    background-color: blue
+}
+
+#textinput {
+    border: 0.5vh solid blue;
+    border-radius: 3vh;
+    margin: 1vh;
+    background-color: whitesmoke;
+}
+
+#password {
+    border: 0.5vh solid blue;
+    border-radius: 3vh;
+    margin: 1vh;
+    background-color: whitesmoke;
+}
+
+#grid {
+    display: inline-flex;
+    flex-direction: row;
+}
+
+#logo {
+    position: absolute;
+    z-index: 1;
+    align-content: left;
+    padding-left: 1.75vw;
+    width: 19vh;
+}
+
+#navbar {
+    font-size: medium;
+    position: sticky;
+    background-color: rgb(87, 82, 82);
+    border-bottom: 1vh solid blue;
+    text-align: right;
+    padding-top: 0.75vh;
+    padding-bottom: 1.25vh;
+    padding-left: 1.75vw;
+    padding-right: 1.75vw;
 }

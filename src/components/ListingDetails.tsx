@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
+import { Card, CardBody } from 'reactstrap';
 import OrderCreate from './OrderCreate';
 
 type ListingAPI = {
@@ -46,62 +46,55 @@ export default class ListingDetails extends Component<ListingDetailsProps, {}> {
         const { props, state } = this;
         const { listing } = props;
         return (
-            <div id='wrapper'>
-                <Container>
-                    <Row>
-                        <Col>
-                            Name: {listing.item_name}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <img
-                                alt='Item Picture 1'
-                                src={listing.pictureOne}
-                            />
-
+            <div id='grid'>
+                <Card className='detailscard'>
+                    <CardBody className='cardbody'>
+                        <div>
                             <img
                                 alt='Item Picture 2'
                                 src={listing?.pictureTwo}
+                                className='listingpictureother'
                             />
-
+                            <br />
                             <img
                                 alt='Item Picture 3'
                                 src={listing?.pictureThree}
+                                className='listingpictureother'
                             />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </div>
+                        <br />
+                        <div>
                             Description: {listing.description}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </div>
+                        <br />
+                        <div>
                             Platform: {listing.platform}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </div>
+                        <br />
+                        <div>
                             Item New In Box: {this.newInBox(listing.newInBox)}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </div>
+                        <div>
                             Condition Description: {listing.condition}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
+                        </div>
+                        <br />
+                        <div>
                             Price (USD): ${listing.price}
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <NavLink to={`order/create/${listing.id}`}>Order It!</NavLink>
-                        </Col>
-                    </Row>
-                </Container>
+                        </div>
+                        <br />
+                        <div>
+                            { () => {if (this.props.sessionToken === undefined) {
+                                return (
+                                    <p>Login to be able to order this item!</p>
+                                )
+                            } else {
+                                return (
+                                    <NavLink to={`order/create/${listing.id}`} className='listinglink'>Order It!</NavLink>
+                                )
+                            }}}
+                        </div>
+                    </CardBody>
+                </Card>
                 <Routes>
                     <Route path={`order/create/:id`} element={<OrderCreate
                         editSpecificListing={this.props.editSpecificListing}

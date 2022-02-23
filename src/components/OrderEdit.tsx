@@ -67,13 +67,13 @@ export default class OrderEdit extends Component<OrderEditProps, OrderEditState>
 
     render() {
         return (
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.handleFormSubmit} className='form'>
                 <FormGroup>
                     <Label>
                         Shipping Address
                     </Label>
                     <Input
-                        id='shipping_address'
+                        id='textinput'
                         name='shipping_address'
                         placeholder='shipping address'
                         type='text'
@@ -81,7 +81,7 @@ export default class OrderEdit extends Component<OrderEditProps, OrderEditState>
                         onChange={(e) => this.setState({ shipping_address: (e.target.value) })}
                     />
                 </FormGroup>
-                <Button type='submit'>
+                <Button type='submit' className='submitbutton'>
                     Submit
                 </Button>
             </Form>

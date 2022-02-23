@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
 import { Card, CardTitle, CardBody, CardSubtitle } from 'reactstrap';
 import ListingDetails from './ListingDetails';
+import '../App.css';
 
 type ListingAPI = {
     id: string,
@@ -54,23 +55,20 @@ export default class Home extends Component<HomePageProps, {}> {
     listingsMapper = () => {
         return this.props.listings.map((listing) => {
             return (
-                <div id='listingGrid' key={listing.id}>
-                    <Card>
-                        <CardTitle>
+                <div id='grid' key={listing.id}>
+                    <Card className='card'>
+                        <CardTitle className='cardtitle'>
                             {listing.item_name}
                         </CardTitle>
-                        <CardSubtitle>
-                            Item New In Box: {this.newInBox(listing)}
-                        </CardSubtitle>
-                        <CardBody>
-                            <img src={listing.pictureOne} />
+                        <CardBody className='cardbody'>
+                            <p>Item New In Box: </p> {this.newInBox(listing)}
                             <br />
-                            <p>Description:</p> {listing.description}
-                            <br />
+                            <img src={listing.pictureOne} className='listingpictureone'/>
                             <p>Price: $</p> {listing.price}
                             <br />
-                            <NavLink to={`listinginfo/${listing.id}/*`}>View More Details!</NavLink>
+                            <br />
                         </CardBody>
+                        <NavLink to={`listinginfo/${listing.id}/*`} className='listinglink'>View More Details!</NavLink>
                     </Card>
                     <Routes>
                         <Route path={`listinginfo/:id/*`} element={<ListingDetails

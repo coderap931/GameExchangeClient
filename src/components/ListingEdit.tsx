@@ -56,6 +56,15 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
         }
     }
 
+    determineNew = (isNew: string) =>{
+        if (isNew === 'true') {
+            this.setState({newInBox: true});
+        } else {
+            this.setState({newInBox: false});
+        }
+    }
+
+
     handleFormSubmit = (event: React.SyntheticEvent): void => {
         event.preventDefault();
         fetch(`${APIURL}/listing/edit/${this.props.listing.id}`, {
@@ -88,13 +97,13 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
 
     render() {
         return (
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.handleFormSubmit} className='createform'>
                 <FormGroup>
                     <Label>
-                        Item Name
+                        Item Name * :
                     </Label>
                     <Input
-                        id='item_name'
+                        id='textinput'
                         name='item_name'
                         placeholder='Game XYZ'
                         type='text'
@@ -104,10 +113,10 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        General Item Description
+                        General Item Description * :
                     </Label>
                     <Input
-                        id='description'
+                        id='textinput'
                         name='description'
                         placeholder='Game XYZ, an openb-world RPG with several Game of The Year Awards'
                         type='text'
@@ -117,10 +126,10 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Platform
+                        Platform * :
                     </Label>
                     <Input
-                        id='platform'
+                        id='textinput'
                         name='platform'
                         placeholder='Nintendo Switch'
                         type='text'
@@ -128,27 +137,22 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                         onChange={(e) => this.setState({ platform: (e.target.value) })}
                     />
                 </FormGroup>
-                <FormGroup tag='fieldset'>
-                    <legend>New In Box</legend>
-                    <FormGroup>
-                        <Label check>
-                            <Input type='radio' name='true' /> {' '}
-                            True
-                        </Label>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label check>
-                            <Input type='radio' name='false' /> {' '}
-                            False
-                        </Label>
-                    </FormGroup>
+                <FormGroup>
+                    <Label for="true">
+                        Check if Item is New In Box and Sealed:
+                    </Label>
+                    <Input
+                        type='checkbox'
+                        name='true' value={'true'}
+                        onChange={(e) => this.determineNew(e.target.value)}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Condition Description
+                        Condition Description * :
                     </Label>
                     <Input
-                        id='condition'
+                        id='textinput'
                         name='condition'
                         placeholder='Game Disc only, minor scratches, tested and working'
                         type='text'
@@ -158,10 +162,10 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Price (in USD)
+                        Price (in USD) * :
                     </Label>
                     <Input
-                        id='price'
+                        id='textinput'
                         name='price'
                         placeholder='0.00'
                         type='number'
@@ -171,10 +175,10 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Picture One
+                        Picture One * :
                     </Label>
                     <Input
-                        id='pictureOne'
+                        id='textinput'
                         name='pictureOne'
                         type='text'
                         value={this.state.pictureOne}
@@ -183,10 +187,10 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Picture Two
+                        Picture Two:
                     </Label>
                     <Input
-                        id='pictureTwo'
+                        id='textinput'
                         name='pictureTwo'
                         type='text'
                         value={this.state.pictureTwo}
@@ -195,17 +199,18 @@ export default class ListingEdit extends Component<ListingEditProps, ListingEdit
                 </FormGroup>
                 <FormGroup>
                     <Label>
-                        Picture Three
+                        Picture Three:
                     </Label>
                     <Input
-                        id='pictureThree'
+                        id='textinput'
                         name='pictureThree'
                         type='text'
                         value={this.state.pictureThree}
                         onChange={(e) => this.setState({ pictureThree: (e.target.value) })}
                     />
                 </FormGroup>
-                <Button type='submit'>
+                <p>All fields denoted by a * are required, pictures are links to uploads on a hosting site (must end in file extension)</p>
+                <Button type='submit' className='submitbutton'>
                     Submit
                 </Button>
             </Form>

@@ -64,14 +64,14 @@ export default class RegisterAdmin extends Component<RegisterAdminProps, Registe
 
     render() {
         return (
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.handleFormSubmit} className='form'>
                 <p>Please let the new admin take control and create their account</p>
                 <FormGroup>
                     <Label for='first_name'>
                         First Name
                     </Label>
                     <Input
-                        id='first_name'
+                        id='textinput'
                         name='first_name'
                         placeholder='John'
                         type='text'
@@ -84,7 +84,7 @@ export default class RegisterAdmin extends Component<RegisterAdminProps, Registe
                         Last Name
                     </Label>
                     <Input
-                        id='last_name'
+                        id='textinput'
                         name='last_name'
                         placeholder='Doe'
                         type='text'
@@ -97,7 +97,7 @@ export default class RegisterAdmin extends Component<RegisterAdminProps, Registe
                         Username
                     </Label>
                     <Input
-                        id='username'
+                        id='textinput'
                         name='username'
                         placeholder='Collector123'
                         type='text'
@@ -110,7 +110,7 @@ export default class RegisterAdmin extends Component<RegisterAdminProps, Registe
                         Email
                     </Label>
                     <Input
-                        id='email'
+                        id='textinput'
                         name='email'
                         placeholder='example@example.com'
                         type='email'

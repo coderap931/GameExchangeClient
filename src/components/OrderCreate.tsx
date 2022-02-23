@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Navigate } from 'react-router-dom';
-import { Form, Label, Input, FormGroup, Button } from 'reactstrap';
+import { Card, CardBody, Form, Label, Input, FormGroup, Button } from 'reactstrap';
 import APIURL from "../helpers/environment";
 
 
@@ -72,29 +72,31 @@ export default class OrderCreate extends Component<OrderCreateProps, OrderCreate
         const {props}=this;
         const {listing}=props;
         return (
-            <div>
+            <Card classname='ordercard'>
+                <CardBody className='cardbody'>
                 <p>Item Being Purchased: {listing.item_name}</p>
                 <p>Item New In Box?: {listing.newInBox}</p>
                 <p>Total Price: $ {listing.price}</p>
-                <Form onSubmit={this.handleFormSubmit}>
-                    <FormGroup>
-                        <Label for='shipping_address'>
-                            Shipping Address
-                        </Label>
-                        <Input
-                            id='shipping_address'
-                            name='shipping_address'
-                            placeholder='Street Address, Town/City, State, ZIP code'
-                            type='text'
-                            value={this.state.shipping_address}
-                            onChange={(e) => this.setState({shipping_address: (e.target.value)})}
-                        />
-                    </FormGroup>
-                    <Button type='submit'>
-                        Submit Order
-                    </Button>
-                </Form>
-            </div>
+                    <Form onSubmit={this.handleFormSubmit}>
+                        <FormGroup>
+                            <Label for='shipping_address'>
+                                Shipping Address: 
+                            </Label>
+                            <Input
+                                id='textinput'
+                                name='shipping_address'
+                                placeholder='Street Address, Town/City, State, ZIP code'
+                                type='text'
+                                value={this.state.shipping_address}
+                                onChange={(e) => this.setState({shipping_address: (e.target.value)})}
+                            />
+                        </FormGroup>
+                        <Button type='submit' className='submitbutton'>
+                            Submit Order
+                        </Button>
+                    </Form>
+                </CardBody>
+            </Card>
         )
     }
 };

@@ -68,13 +68,13 @@ export default class Register extends Component<RegisterProps, RegisterState> {
 
     render() {
         return (
-            <Form onSubmit={this.handleFormSubmit}>
+            <Form onSubmit={this.handleFormSubmit} className='form'>
                 <FormGroup>
                     <Label for='first_name'>
-                        First Name
+                        First Name:
                     </Label>
                     <Input
-                        id='first_name'
+                        id='textinput'
                         name='first_name'
                         placeholder='John'
                         type='text'
@@ -84,10 +84,10 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                 </FormGroup>
                 <FormGroup>
                     <Label for='last_name'>
-                        Last Name
+                        Last Name:
                     </Label>
                     <Input
-                        id='last_name'
+                        id='textinput'
                         name='last_name'
                         placeholder='Doe'
                         type='text'
@@ -97,10 +97,10 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                 </FormGroup>
                 <FormGroup>
                     <Label for='username'>
-                        Username
+                        Username:
                     </Label>
                     <Input
-                        id='username'
+                        id='textinput'
                         name='username'
                         placeholder='Collector123'
                         type='text'
@@ -110,10 +110,10 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                 </FormGroup>
                 <FormGroup>
                     <Label for='email'>
-                        Email
+                        Email:
                     </Label>
                     <Input
-                        id='email'
+                        id='textinput'
                         name='email'
                         placeholder='example@example.com'
                         type='email'
@@ -123,7 +123,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                 </FormGroup>
                 <FormGroup>
                     <Label for='password'>
-                        Password
+                        Password:
                     </Label>
                     <Input
                         id='password'
@@ -134,7 +134,7 @@ export default class Register extends Component<RegisterProps, RegisterState> {
                         onChange={(e) => this.setState({password: (e.target.value)})}
                     />
                 </FormGroup>
-                <Button type='submit'>
+                <Button type='submit' className='submitbutton'>
                     Submit
                 </Button>
             </Form>
